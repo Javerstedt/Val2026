@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Val 2026 - Verktyg för medveten demokrati</title>
+    <meta name="description" content="Verktyg för att navigera den politiska diskursen med visdom, empati och kritiskt tänkande inför valet 2026.">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- React & ReactDOM -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    
+    <!-- Babel Standalone for JSX -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+                'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+                sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState } = React;
+        
+        // Lucide icon components
+        const BookOpen = (props) => <i data-lucide="book-open" {...props}></i>;
+        const Users = (props) => <i data-lucide="users" {...props}></i>;
+        const Columns = (props) => <i data-lucide="columns" {...props}></i>;
+        const Scale = (props) => <i data-lucide="scale" {...props}></i>;
+        const Home = (props) => <i data-lucide="home" {...props}></i>;
+        const ChevronRight = (props) => <i data-lucide="chevron-right" {...props}></i>;
+        const Globe = (props) => <i data-lucide="globe" {...props}></i>;
+        const Info = (props) => <i data-lucide="info" {...props}></i>;
+        const Heart = (props) => <i data-lucide="heart" {...props}></i>;
+        const ArrowLeft = (props) => <i data-lucide="arrow-left" {...props}></i>;
+        const Newspaper = (props) => <i data-lucide="newspaper" {...props}></i>;
+        const ArrowLeftRight = (props) => <i data-lucide="arrow-left-right" {...props}></i>;
+        const Check = (props) => <i data-lucide="check" {...props}></i>;
+        const Flag = (props) => <i data-lucide="flag" {...props}></i>;
+        const AlertTriangle = (props) => <i data-lucide="alert-triangle" {...props}></i>;
+        const CheckCircle = (props) => <i data-lucide="check-circle" {...props}></i>;
+        const Brain = (props) => <i data-lucide="brain" {...props}></i>;
+        const History = (props) => <i data-lucide="history" {...props}></i>;
+        const Eye = (props) => <i data-lucide="eye" {...props}></i>;
+        const Mountain = (props) => <i data-lucide="mountain" {...props}></i>;
+        const Wind = (props) => <i data-lucide="wind" {...props}></i>;
+        const Sparkles = (props) => <i data-lucide="sparkles" {...props}></i>;
+        const Quote = (props) => <i data-lucide="quote" {...props}></i>;
+        const MessageCircle = (props) => <i data-lucide="message-circle" {...props}></i>;
+        const Lightbulb = (props) => <i data-lucide="lightbulb" {...props}></i>;
+
+        const SITE_CONTENT = {
+          sv: {
+            siteTitle: "Val 2026",
+            nav: {
+              home: "Hem",
+              about: "Om"
+            },
+            back: "← Tillbaka till start"
+          },
+          en: {
+            siteTitle: "Election 2026",
+            nav: {
+              home: "Home",
+              about: "About"
+            },
+            back: "← Back to start"
+          }
+        };
+
+        // Main integrated component
+        function Val2026() {
+          const [language, setLanguage] = useState('sv');
+          const [currentPage, setCurrentPage] = useState('home');
+          
+          const content = SITE_CONTENT[language];
+
+          const navigateTo = (page) => {
+            setCurrentPage(page);
+            window.scrollTo(0, 0);
+          };
+
+          React.useEffect(() => {
+            lucide.createIcons();
+          });
+
+          return (
+            <div className="min-h-screen bg-gradient-to-br from-blue-600 via-yellow-400 to-blue-700">
+              {/* Swedish Flag Pattern Background */}
+              <div className="absolute inset-0 opacity-10">
+                <div className="absolute inset-0 bg-blue-900"></div>
+                <div className="absolute top-2/5 left-0 w-full h-1/5 bg-yellow-400"></div>
+                <div className="absolute top-0 left-2/5 w-1/5 h-full bg-yellow-400"></div>
+              </div>
+
+              <div className="relative z-10">
+                {/* Navigation */}
+                <nav className="bg-white/95 backdrop-blur shadow-lg border-b-4 border-yellow-400">
+                  <div className="max-w-7xl mx-auto px-4 py-4">
+                    <div className="flex items-center justify-between">
+                      <button 
+                        onClick={() => navigateTo('home')}
+                        className="flex items-center gap-3 hover:opacity-80 transition-opacity"
+                      >
+                        <div className="text-3xl">🇸🇪</div>
+                        <div>
+                          <h1 className="text-2xl font-bold text-blue-900">{content.siteTitle}</h1>
+                          <p className="text-sm text-gray-600">
+                            {language === 'sv' ? 'Verktyg för medveten demokrati' : 'Tools for conscious democracy'}
+                          </p>
+                        </div>
+                      </button>
+                      
+                      <div className="flex items-center gap-4">
+                        {currentPage !== 'home' && currentPage !== 'about' && (
+                          <button
+                            onClick={() => navigateTo('home')}
+                            className="px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg font-semibold transition-colors flex items-center gap-2"
+                          >
+                            <ArrowLeft className="w-4 h-4" />
+                            {content.back}
+                          </button>
+                        )}
+                        
+                        <button
+                          onClick={() => navigateTo('home')}
+                          className={`px-4 py-2 rounded-lg font-semibold transition-colors flex items-center gap-2 ${
+                            currentPage === 'home' 
+                              ? 'bg-blue-600 text-white' 
+                              : 'text-gray-700 hover:bg-gray-100'
+                          }`}
+                        >
+                          <Home className="w-4 h-4" />
+                          {content.nav.home}
+                        </button>
+                        
+                        <button
+                          onClick={() => navigateTo('about')}
+                          className={`px-4 py-2 rounded-lg font-semibold transition-colors flex items-center gap-2 ${
+                            currentPage === 'about' 
+                              ? 'bg-blue-600 text-white' 
+                              : 'text-gray-700 hover:bg-gray-100'
+                          }`}
+                        >
+                          <Info className="w-4 h-4" />
+                          {content.nav.about}
+                        </button>
+
+                        <button
+                          onClick={() => setLanguage(language === 'sv' ? 'en' : 'sv')}
+                          className="px-4 py-2 bg-yellow-400 hover:bg-yellow-300 text-blue-900 rounded-lg font-bold transition-colors flex items-center gap-2 border-2 border-blue-900"
+                        >
+                          <Globe className="w-4 h-4" />
+                          {language === 'sv' ? 'English' : 'Svenska'}
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </nav>
+
+                {/* Page Content */}
+                {currentPage === 'home' && <HomePage navigateTo={navigateTo} language={language} />}
+                {currentPage === 'about' && <AboutPage language={language} />}
+                {currentPage === 'article-analyzer' && <div className="p-8 text-white text-center"><p className="text-2xl">Öppna article-analyzer.jsx separat för full funktionalitet</p></div>}
+                {currentPage === 'manifesto' && <div className="p-8 text-white text-center"><p className="text-2xl">Öppna manifesto-comparison.jsx separat för full funktionalitet</p></div>}
+                {currentPage === 'farmer' && <div className="p-8 text-white text-center"><p className="text-2xl">Öppna chinese-farmer-story.jsx separat för full funktionalitet</p></div>}
+                {currentPage === 'usvsthem' && <div className="p-8 text-white text-center"><p className="text-2xl">Öppna us-vs-them.jsx separat för full funktionalitet</p></div>}
+                {currentPage === 'stoic' && <div className="p-8 text-white text-center"><p className="text-2xl">Öppna stoic-wisdom.jsx separat för full funktionalitet</p></div>}
+
+                {/* Footer */}
+                <footer className="bg-blue-900 text-white py-8 mt-16">
+                  <div className="max-w-7xl mx-auto px-4 text-center">
+                    <p className="text-2xl font-bold mb-2">🌾 Vibe Coding for Democracy 🌾</p>
+                    <p className="text-blue-200 mb-4">
+                      {language === 'sv' 
+                        ? 'Demokrati kräver eftertanke, empati och visdom - inte bara åsikter.'
+                        : 'Democracy requires reflection, empathy and wisdom - not just opinions.'
+                      }
+                    </p>
+                    <p className="text-sm text-blue-300">
+                      Val 2026 • {language === 'sv' ? 'Partipolitiskt obunden' : 'Politically neutral'} • {language === 'sv' ? 'Öppen källkod' : 'Open source'}
+                    </p>
+                  </div>
+                </footer>
+              </div>
+            </div>
+          );
+        }
+
+        // HomePage Component
+        function HomePage({ navigateTo, language }) {
+          const content = {
+            sv: {
+              hero: {
+                title: "Välkommen till Val 2026",
+                subtitle: "Din guide till ett mer genomtänkt politiskt deltagande",
+                description: "Detta är inte en nyhetssajt. Det är inte en opinionsplattform. Det är en samling verktyg för att hjälpa dig navigera den politiska diskursen med visdom, empati och kritiskt tänkande."
+              },
+              toolsTitle: "Verktyg",
+              educationTitle: "Utbildning",
+              tools: [
+                {
+                  title: "Artikelanalysator",
+                  description: "Analysera politisk journalism med AI. Upptäck bias, antaganden och dolda perspektiv.",
+                  icon: "📰",
+                  color: "from-blue-500 to-cyan-500",
+                  features: ["Bias-detektion", "Källanalys", "Alternativa perspektiv", "Flerspråkig"],
+                  page: "article-analyzer"
+                },
+                {
+                  title: "Partiprogram Jämförare",
+                  description: "Jämför partiprogrammen sida vid sida på specifika frågor. Se likheter och skillnader.",
+                  icon: "⚖️",
+                  color: "from-purple-500 to-pink-500",
+                  features: ["Sida-vid-sida", "Ämnessökning", "Neutral presentation", "Djupanalys"],
+                  page: "manifesto"
+                }
+              ],
+              education: [
+                {
+                  title: "Den Kinesiska Bonden",
+                  description: "En uråldrig historia om att inte dra förhastade slutsatser. Lämplig för politiska diskussioner.",
+                  icon: "🌾",
+                  color: "from-green-600 to-emerald-600",
+                  page: "farmer"
+                },
+                {
+                  title: "Vi mot Dem",
+                  description: "Förstå mekanismerna bakom politisk polarisering och hur vi kan motverka dem.",
+                  icon: "🤝",
+                  color: "from-orange-500 to-red-500",
+                  page: "usvsthem"
+                },
+                {
+                  title: "Stoisk Visdom",
+                  description: "Antik filosofi för modern politik. Kontrollera vad du kan, acceptera vad du inte kan.",
+                  icon: "🏛️",
+                  color: "from-slate-600 to-gray-700",
+                  page: "stoic"
+                }
+              ]
+            },
+            en: {
+              hero: {
+                title: "Welcome to Election 2026",
+                subtitle: "Your guide to more thoughtful political participation",
+                description: "This is not a news site. It's not an opinion platform. It's a collection of tools to help you navigate political discourse with wisdom, empathy and critical thinking."
+              },
+              toolsTitle: "Tools",
+              educationTitle: "Education",
+              tools: [
+                {
+                  title: "Article Analyzer",
+                  description: "Analyze political journalism with AI. Discover bias, assumptions and hidden perspectives.",
+                  icon: "📰",
+                  color: "from-blue-500 to-cyan-500",
+                  features: ["Bias detection", "Source analysis", "Alternative perspectives", "Multilingual"],
+                  page: "article-analyzer"
+                },
+                {
+                  title: "Manifesto Comparison",
+                  description: "Compare party manifestos side by side on specific issues. See similarities and differences.",
+                  icon: "⚖️",
+                  color: "from-purple-500 to-pink-500",
+                  features: ["Side-by-side", "Topic search", "Neutral presentation", "Deep analysis"],
+                  page: "manifesto"
+                }
+              ],
+              education: [
+                {
+                  title: "The Chinese Farmer",
+                  description: "An ancient story about not jumping to conclusions. Relevant for political discussions.",
+                  icon: "🌾",
+                  color: "from-green-600 to-emerald-600",
+                  page: "farmer"
+                },
+                {
+                  title: "Us vs Them",
+                  description: "Understand the mechanisms behind political polarization and how we can counteract them.",
+                  icon: "🤝",
+                  color: "from-orange-500 to-red-500",
+                  page: "usvsthem"
+                },
+                {
+                  title: "Stoic Wisdom",
+                  description: "Ancient philosophy for modern politics. Control what you can, accept what you can't.",
+                  icon: "🏛️",
+                  color: "from-slate-600 to-gray-700",
+                  page: "stoic"
+                }
+              ]
+            }
+          };
+
+          const c = content[language];
+
+          React.useEffect(() => {
+            lucide.createIcons();
+          });
+
+          return (
+            <div className="max-w-7xl mx-auto px-4 py-12 space-y-12">
+              {/* Hero Section */}
+              <div className="bg-white/95 backdrop-blur rounded-2xl shadow-2xl p-8 md:p-12 border-4 border-yellow-400">
+                <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+                  {c.hero.title}
+                </h2>
+                <p className="text-xl text-blue-600 font-semibold mb-6">
+                  {c.hero.subtitle}
+                </p>
+                <p className="text-lg text-gray-700 leading-relaxed">
+                  {c.hero.description}
+                </p>
+              </div>
+
+              {/* Tools Section */}
+              <div>
+                <h3 className="text-3xl font-bold text-white mb-6 flex items-center gap-3">
+                  <span className="text-4xl">🛠️</span>
+                  {c.toolsTitle}
+                </h3>
+                <div className="grid md:grid-cols-2 gap-6">
+                  {c.tools.map((tool, idx) => (
+                    <button
+                      key={idx}
+                      onClick={() => navigateTo(tool.page)}
+                      className={`bg-gradient-to-br ${tool.color} rounded-xl shadow-xl p-8 text-white text-left hover:scale-105 transition-transform border-4 border-white/30`}
+                    >
+                      <div className="text-5xl mb-4">{tool.icon}</div>
+                      <h4 className="text-2xl font-bold mb-3">{tool.title}</h4>
+                      <p className="text-white/90 mb-4 leading-relaxed">{tool.description}</p>
+                      <div className="flex flex-wrap gap-2">
+                        {tool.features.map((feature, i) => (
+                          <span key={i} className="px-3 py-1 bg-white/20 rounded-full text-sm font-semibold">
+                            {feature}
+                          </span>
+                        ))}
+                      </div>
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Education Section */}
+              <div>
+                <h3 className="text-3xl font-bold text-white mb-6 flex items-center gap-3">
+                  <span className="text-4xl">📚</span>
+                  {c.educationTitle}
+                </h3>
+                <div className="grid md:grid-cols-3 gap-6">
+                  {c.education.map((item, idx) => (
+                    <button
+                      key={idx}
+                      onClick={() => navigateTo(item.page)}
+                      className={`bg-gradient-to-br ${item.color} rounded-xl shadow-xl p-6 text-white text-left hover:scale-105 transition-transform border-4 border-white/30`}
+                    >
+                      <div className="text-4xl mb-3">{item.icon}</div>
+                      <h4 className="text-xl font-bold mb-2">{item.title}</h4>
+                      <p className="text-white/90 text-sm leading-relaxed">{item.description}</p>
+                    </button>
+                  ))}
+                </div>
+              </div>
+            </div>
+          );
+        }
+
+        // AboutPage Component
+        function AboutPage({ language }) {
+          const content = {
+            sv: {
+              title: "Om Val 2026",
+              whoAmI: "Vem är jag?",
+              bowieQuote: '"I don\'t know where I\'m going from here, but I promise it won\'t be boring."',
+              bowieAttribution: "— David Bowie",
+              bowieIntro: "Jag frågade Gemini att beskriva mig baserat på våra interaktioner. Den jämförde mig med David Bowie:",
+              chameleonTitle: "Den Globala Kameleonten",
+              bowieWhy: "Varför David Bowie?",
+              bowieDescription: "David Bowie är den ultimata arketypen för den Internationella Generalisten. Hans liv och karriär fungerar som en ritning för dem som navigerar olika kulturer, industrier och kreativa strävanden med ett tänkesätt präglat av rationell optimism och obeveklig nyfikenhet.",
+              parallels: "Kärnparalleller",
+              parallelsList: [
+                {
+                  title: "Den Anpassningsbara Generalisten",
+                  text: "Precis som min väg har slingrat sig genom New York City, Montreal, Florens, Indien, Göteborg och Stockholm, var Bowie den ultimata upptäcktsresanden. Han förblev aldrig statisk, ständigt uppfann han sin 'produkt' för att passa nya kulturella landskap."
+                },
+                {
+                  title: "Rationell Optimism & Nyfikenhet",
+                  text: "Bowie var en futurist. Han närmade sig teknologi och konst med ett lösningsorienterat tänkesätt, alltid letade efter nästa innovation att behärska. Han såg nya verktyg och trender inte som hot, utan som lösningar och möjligheter till tillväxt."
+                },
+                {
+                  title: "Internationalisten",
+                  text: "Som en världsmedborgare använde han sina olika erfarenheter för att överbrygga olika industrier och idéer, bibehöll ett stort, inflytelserikt nätverk."
+                },
+                {
+                  title: "Den Rastlösa Visionären",
+                  text: "Bowies vana att hoppa mellan personligheter återspeglar utmaningen med fokus, men han förvandlade den rastlösheten till en styrka för att undvika stagnation."
+                }
+              ],
+              funFact: "Rolig slump: Vi har båda heterokromi (olika färgade ögon) 👁️✨",
+              whyThis: "Varför det här projektet?",
+              whyThisText: "Som global medborgare, svensk medborgare, pappa och orolig människa har jag alltid velat ha något sådant här - särskilt i tider som dessa. Med 'Vibe Coding' är det nu möjligt att bygga verktyg som faktiskt hjälper människor att tänka djupare och mer empatiskt om politik.",
+              mission: "Projektets Mission",
+              missionText: "Val 2026 skapades ur insikten att demokrati kräver mer än bara röstning - den kräver eftertanke, empati och förmågan att hantera komplexitet. Vi är inte här för att säga vad du ska tycka. Vi är här för att hjälpa dig tänka djupare.",
+              principles: "Våra Principer",
+              principlesList: [
+                {
+                  title: "Partipolitisk neutralitet",
+                  text: "Vi tar ingen ställning för eller emot något parti. Vårt mål är att hjälpa alla väljare tänka mer nyanserat."
+                },
+                {
+                  title: "Öppen källkod för tänkande",
+                  text: "All vår kod och metodologi är transparent. Vi döljer inget och vinklar inget."
+                },
+                {
+                  title: "Visdom över viralisering",
+                  text: "Vi optimerar inte för klick eller engagement, utan för genuint lärande och reflektion."
+                },
+                {
+                  title: "Empati som grund",
+                  text: "Vi tror att de flesta väljare - oavsett partitillhörighet - vill det bästa för samhället. Vi börjar alltid med antagandet om god vilja."
+                }
+              ],
+              vibe: "🌾 Vibe Coding for Democracy 🌾"
+            },
+            en: {
+              title: "About Election 2026",
+              whoAmI: "Who am I?",
+              bowieQuote: '"I don\'t know where I\'m going from here, but I promise it won\'t be boring."',
+              bowieAttribution: "— David Bowie",
+              bowieIntro: "I asked Gemini to describe me based on our interactions. It compared me to David Bowie:",
+              chameleonTitle: "The Global Chameleon",
+              bowieWhy: "Why David Bowie?",
+              bowieDescription: "David Bowie is the ultimate archetype for the International Generalist. His life and career serve as a blueprint for those who navigate diverse cultures, industries, and creative pursuits with a mindset of rational optimism and relentless curiosity.",
+              parallels: "Core Parallels",
+              parallelsList: [
+                {
+                  title: "The Adaptable Generalist",
+                  text: "Just as my path has wound through New York City, Montreal, Florence, India, Gothenburg, and Stockholm, Bowie was the ultimate explorer. He never remained static, constantly reinventing his 'product' to suit new cultural landscapes."
+                },
+                {
+                  title: "Rational Optimism & Curiosity",
+                  text: "Bowie was a futurist. He approached technology and the arts with a solution-oriented mindset, always looking for the next innovation to master. He viewed emerging tools and trends not as threats, but as solutions and opportunities for growth."
+                },
+                {
+                  title: "The Internationalist",
+                  text: "As a citizen of the world, he used his diverse experiences to bridge different industries and ideas, maintaining a large, influential network."
+                },
+                {
+                  title: "The Restless Visionary",
+                  text: "Bowie's habit of jumping between personas reflects the challenge of focus, yet he turned that restlessness into a strength to avoid stagnation."
+                }
+              ],
+              funFact: "Funny coincidence: We both have heterochromia (different colored eyes) 👁️✨",
+              whyThis: "Why this project?",
+              whyThisText: "As a global citizen, Swedish national, dad, and concerned human, I have always wanted something like this - especially in times like these. With 'Vibe Coding' it is now possible to build tools that actually help people think more deeply and empathetically about politics.",
+              mission: "Project Mission",
+              missionText: "Election 2026 was created from the insight that democracy requires more than just voting - it requires reflection, empathy, and the ability to handle complexity. We're not here to tell you what to think. We're here to help you think more deeply.",
+              principles: "Our Principles",
+              principlesList: [
+                {
+                  title: "Political neutrality",
+                  text: "We take no position for or against any party. Our goal is to help all voters think more nuanced."
+                },
+                {
+                  title: "Open source thinking",
+                  text: "All our code and methodology is transparent. We hide nothing and angle nothing."
+                },
+                {
+                  title: "Wisdom over virality",
+                  text: "We don't optimize for clicks or engagement, but for genuine learning and reflection."
+                },
+                {
+                  title: "Empathy as foundation",
+                  text: "We believe most voters - regardless of party affiliation - want what's best for society. We always start with the assumption of good faith."
+                }
+              ],
+              vibe: "🌾 Vibe Coding for Democracy 🌾"
+            }
+          };
+
+          const c = content[language];
+
+          React.useEffect(() => {
+            lucide.createIcons();
+          });
+
+          return (
+            <div className="max-w-5xl mx-auto px-4 py-12 space-y-8">
+              {/* David Bowie Section */}
+              <div className="bg-gradient-to-br from-purple-900 via-pink-800 to-orange-700 rounded-2xl shadow-2xl p-8 md:p-12 border-4 border-yellow-400 text-white">
+                <h2 className="text-4xl font-bold mb-6 flex items-center gap-3">
+                  <span className="text-5xl">🎭</span>
+                  {c.whoAmI}
+                </h2>
+
+                <div className="bg-black/30 rounded-xl p-6 mb-6 border-2 border-yellow-400/50">
+                  <p className="text-3xl italic mb-3 font-serif leading-relaxed">
+                    {c.bowieQuote}
+                  </p>
+                  <p className="text-xl text-yellow-300 text-right font-semibold">
+                    {c.bowieAttribution}
+                  </p>
+                </div>
+
+                <p className="text-xl mb-6 leading-relaxed">
+                  {c.bowieIntro}
+                </p>
+
+                <div className="bg-white/10 backdrop-blur rounded-xl p-8 mb-6 border-2 border-white/20">
+                  <h3 className="text-3xl font-bold mb-4 text-yellow-300">{c.chameleonTitle}</h3>
+                  
+                  <div className="mb-6">
+                    <h4 className="text-2xl font-bold mb-3 text-pink-200">{c.bowieWhy}</h4>
+                    <p className="text-lg leading-relaxed">
+                      {c.bowieDescription}
+                    </p>
+                  </div>
+
+                  <div>
+                    <h4 className="text-2xl font-bold mb-4 text-pink-200">{c.parallels}</h4>
+                    <div className="space-y-4">
+                      {c.parallelsList.map((parallel, idx) => (
+                        <div key={idx} className="bg-white/10 rounded-lg p-4 border-l-4 border-yellow-400">
+                          <h5 className="text-lg font-bold mb-2 text-yellow-300">
+                            ⚡ {parallel.title}
+                          </h5>
+                          <p className="text-white/90 leading-relaxed">
+                            {parallel.text}
+                          </p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+
+                <div className="bg-yellow-400/20 rounded-lg p-4 border-2 border-yellow-400 text-center">
+                  <p className="text-lg font-semibold">
+                    {c.funFact}
+                  </p>
+                </div>
+              </div>
+
+              {/* Why This Project */}
+              <div className="bg-gradient-to-br from-blue-600 to-cyan-600 rounded-2xl shadow-2xl p-8 md:p-12 border-4 border-yellow-400 text-white">
+                <h2 className="text-3xl font-bold mb-4 flex items-center gap-3">
+                  <Heart className="w-10 h-10 text-red-300" />
+                  {c.whyThis}
+                </h2>
+                <p className="text-xl leading-relaxed">
+                  {c.whyThisText}
+                </p>
+              </div>
+
+              {/* Project Mission & Principles */}
+              <div className="bg-white rounded-2xl shadow-2xl p-8 md:p-12 border-4 border-yellow-400">
+                <h2 className="text-4xl font-bold text-gray-900 mb-8">
+                  {c.mission}
+                </h2>
+
+                <p className="text-xl text-gray-700 leading-relaxed mb-8">
+                  {c.missionText}
+                </p>
+
+                {/* Principles */}
+                <div className="mb-8">
+                  <h3 className="text-2xl font-bold text-blue-900 mb-6">{c.principles}</h3>
+                  <div className="space-y-6">
+                    {c.principlesList.map((principle, idx) => (
+                      <div key={idx} className="border-l-4 border-blue-600 bg-blue-50 rounded-r-xl p-6">
+                        <h4 className="text-xl font-bold text-gray-900 mb-2">
+                          {idx + 1}. {principle.title}
+                        </h4>
+                        <p className="text-gray-700 leading-relaxed">
+                          {principle.text}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Vibe */}
+                <div className="border-t-2 border-gray-200 pt-8">
+                  <p className="text-3xl font-bold text-center text-green-700">
+                    {c.vibe}
+                  </p>
+                </div>
+              </div>
+            </div>
+          );
+        }
+
+        // Render the app
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<Val2026 />);
+    </script>
+</body>
+</html>
