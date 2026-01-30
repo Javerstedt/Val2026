@@ -1,0 +1,2484 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Val 2026 - Verktyg för medveten demokrati</title>
+    <meta name="description" content="Verktyg för att navigera den politiska diskursen med visdom, empati och kritiskt tänkande inför valet 2026.">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- React & ReactDOM -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    
+    <!-- Babel Standalone for JSX -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+                'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+                sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect } = React;
+        
+        // Lucide icon components
+        const BookOpen = (props) => <i data-lucide="book-open" {...props}></i>;
+        const Users = (props) => <i data-lucide="users" {...props}></i>;
+        const Columns = (props) => <i data-lucide="columns" {...props}></i>;
+        const Scale = (props) => <i data-lucide="scale" {...props}></i>;
+        const Home = (props) => <i data-lucide="home" {...props}></i>;
+        const ChevronRight = (props) => <i data-lucide="chevron-right" {...props}></i>;
+        const ChevronLeft = (props) => <i data-lucide="chevron-left" {...props}></i>;
+        const Globe = (props) => <i data-lucide="globe" {...props}></i>;
+        const Info = (props) => <i data-lucide="info" {...props}></i>;
+        const Heart = (props) => <i data-lucide="heart" {...props}></i>;
+        const ArrowLeft = (props) => <i data-lucide="arrow-left" {...props}></i>;
+        const Newspaper = (props) => <i data-lucide="newspaper" {...props}></i>;
+        const ArrowLeftRight = (props) => <i data-lucide="arrow-left-right" {...props}></i>;
+        const Check = (props) => <i data-lucide="check" {...props}></i>;
+        const Flag = (props) => <i data-lucide="flag" {...props}></i>;
+        const AlertTriangle = (props) => <i data-lucide="alert-triangle" {...props}></i>;
+        const CheckCircle = (props) => <i data-lucide="check-circle" {...props}></i>;
+        const Brain = (props) => <i data-lucide="brain" {...props}></i>;
+        const History = (props) => <i data-lucide="history" {...props}></i>;
+        const Eye = (props) => <i data-lucide="eye" {...props}></i>;
+        const Mountain = (props) => <i data-lucide="mountain" {...props}></i>;
+        const Wind = (props) => <i data-lucide="wind" {...props}></i>;
+        const Sparkles = (props) => <i data-lucide="sparkles" {...props}></i>;
+        const Quote = (props) => <i data-lucide="quote" {...props}></i>;
+        const MessageCircle = (props) => <i data-lucide="message-circle" {...props}></i>;
+        const Lightbulb = (props) => <i data-lucide="lightbulb" {...props}></i>;
+        const AlertCircle = (props) => <i data-lucide="alert-circle" {...props}></i>;
+        const TrendingUp = (props) => <i data-lucide="trending-up" {...props}></i>;
+        const FileText = (props) => <i data-lucide="file-text" {...props}></i>;
+        const Loader2 = (props) => <i data-lucide="loader-2" {...props}></i>;
+
+        // ========================================
+        // ARTICLE ANALYZER COMPONENT (DISABLED - COMING SOON)
+        // ========================================
+function SwedishArticleAnalyzer() {
+  const [language, setLanguage] = useState('sv');
+
+  const translations = {
+    sv: {
+      title: "Artikelanalysator",
+      subtitle: "AI-driven analys av politisk journalism",
+      comingSoon: "Kommer Snart!",
+      message: "Artikelanalysatorn håller på att konfigureras med säker backend. Den kommer att vara tillgänglig inom kort.",
+      features: [
+        "Analysera artiklar för politisk bias",
+        "Identifiera underliggande antaganden",
+        "Faktagranska påståenden",
+        "Få alternativa perspektiv"
+      ],
+      backHome: "← Tillbaka till start"
+    },
+    en: {
+      title: "Article Analyzer",
+      subtitle: "AI-powered analysis of political journalism",
+      comingSoon: "Coming Soon!",
+      message: "The article analyzer is being configured with secure backend. It will be available shortly.",
+      features: [
+        "Analyze articles for political bias",
+        "Identify underlying assumptions",
+        "Fact-check claims",
+        "Get alternative perspectives"
+      ],
+      backHome: "← Back to home"
+    }
+  };
+
+  const t = translations[language];
+
+  useEffect(() => {
+    lucide.createIcons();
+  });
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-blue-500 via-cyan-400 to-blue-600 p-4 md:p-8">
+      <div className="max-w-4xl mx-auto">
+        <div className="text-center mb-8">
+          <div className="flex items-center justify-center gap-3 mb-4">
+            <Newspaper className="w-12 h-12 text-white" />
+            <h1 className="text-4xl md:text-5xl font-bold text-white drop-shadow-lg">
+              {t.title}
+            </h1>
+            <button
+              onClick={() => setLanguage(language === 'sv' ? 'en' : 'sv')}
+              className="ml-4 px-3 py-1 bg-white/20 hover:bg-white/30 text-white rounded-lg text-sm font-semibold transition-colors flex items-center gap-1 border border-white/30"
+            >
+              <Globe className="w-4 h-4" />
+              {language === 'sv' ? 'English' : 'Svenska'}
+            </button>
+          </div>
+          <p className="text-xl text-white font-semibold">{t.subtitle}</p>
+        </div>
+
+        <div className="bg-white rounded-2xl shadow-2xl p-8 md:p-12 border-4 border-yellow-400">
+          <div className="text-center mb-8">
+            <div className="text-6xl mb-4">🚧</div>
+            <h2 className="text-3xl font-bold text-gray-900 mb-4">{t.comingSoon}</h2>
+            <p className="text-lg text-gray-700 leading-relaxed">
+              {t.message}
+            </p>
+          </div>
+
+          <div className="bg-blue-50 rounded-xl p-6 border-2 border-blue-200">
+            <h3 className="text-xl font-bold text-gray-900 mb-4">
+              {language === 'sv' ? 'Funktioner som kommer:' : 'Upcoming features:'}
+            </h3>
+            <ul className="space-y-3">
+              {t.features.map((feature, idx) => (
+                <li key={idx} className="flex items-start gap-3">
+                  <CheckCircle className="w-6 h-6 text-blue-600 flex-shrink-0 mt-0.5" />
+                  <span className="text-gray-700">{feature}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div className="mt-8 text-center">
+            <p className="text-sm text-gray-600 mb-4">
+              {language === 'sv' 
+                ? 'Under tiden kan du utforska våra andra verktyg:'
+                : 'Meanwhile, explore our other tools:'
+              }
+            </p>
+            <div className="flex flex-wrap gap-3 justify-center">
+              <span className="px-4 py-2 bg-purple-100 text-purple-800 rounded-lg font-semibold">
+                ⚖️ {language === 'sv' ? 'Partiprogram Jämförare' : 'Manifesto Comparison'}
+              </span>
+              <span className="px-4 py-2 bg-green-100 text-green-800 rounded-lg font-semibold">
+                🌾 {language === 'sv' ? 'Kinesiska Bonden' : 'Chinese Farmer'}
+              </span>
+              <span className="px-4 py-2 bg-orange-100 text-orange-800 rounded-lg font-semibold">
+                🤝 {language === 'sv' ? 'Vi mot Dem' : 'Us vs Them'}
+              </span>
+              <span className="px-4 py-2 bg-slate-100 text-slate-800 rounded-lg font-semibold">
+                🏛️ {language === 'sv' ? 'Stoisk Visdom' : 'Stoic Wisdom'}
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <div className="mt-8 text-center text-sm text-gray-600 bg-white/60 backdrop-blur rounded-lg p-4">
+          <p className="font-semibold mb-1">🌾 Vibe Coding for Democracy 🌾</p>
+          <p className="text-xs">
+            {language === 'sv'
+              ? 'Verktyg för medveten demokrati inför valet 2026'
+              : 'Tools for conscious democracy ahead of the 2026 election'
+            }
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+        // ========================================
+        // MANIFESTO COMPARISON COMPONENT
+        // ========================================
+// Party data structure with actual S positions and placeholder data for others
+const PARTY_DATA = {
+  S: {
+    name: { sv: "Socialdemokraterna", en: "Social Democrats" },
+    color: "#E8112d",
+    positions: {
+      immigration: {
+        sv: "Stram migrationspolitik för att integrationen ska fungera. Ordning och reda i flyktingmottagandet. Jämn fördelning av nyanlända över landet.",
+        en: "Strict migration policy for integration to work. Order in refugee reception. Even distribution of newcomers across the country."
+      },
+      climate: {
+        sv: "Överenskomna internationella klimatmål uppnås. Skyndsam och rättvis klimatomställning. Svenskt ledarskap genom stark industri och innovationskraft.",
+        en: "Agreed international climate goals achieved. Swift and fair climate transition. Swedish leadership through strong industry and innovation."
+      },
+      economy: {
+        sv: "Progressiv beskattning efter bärkraft. Ökad beskattning av kapitalinkomster. Full sysselsättning som mål. Produktivitetsvinster fördelas rättvist.",
+        en: "Progressive taxation by ability to pay. Increased taxation of capital income. Full employment as goal. Productivity gains distributed fairly."
+      },
+      healthcare: {
+        sv: "Jämlik och jämställd folkhälsa. Lika rätt för alla till god hälso- och sjukvård. Ökat statligt ansvar för nationell likvärdighet. Demokratisk kontroll över välfärden.",
+        en: "Equal public health. Equal right for all to good healthcare. Increased state responsibility for national equality. Democratic control over welfare."
+      },
+      education: {
+        sv: "Högkvalitativ undervisning i alla skolor. Avgiftsfri skola och högskola. Avskaffande av marknadsskolan. Obligatorisk gymnasieskola.",
+        en: "High-quality teaching in all schools. Free school and university. Abolition of market schools. Compulsory upper secondary school."
+      },
+      crime: {
+        sv: "Kraftfullt bekämpande av organiserad kriminalitet. Straff i paritet med brottens allvar. Offensiva insatser mot nyrekrytering av barn och unga.",
+        en: "Forceful combat of organized crime. Punishments proportional to crime severity. Offensive efforts against recruitment of children and youth."
+      }
+    }
+  },
+  M: {
+    name: { sv: "Moderaterna", en: "Moderates" },
+    color: "#52BDEC",
+    positions: {
+      immigration: {
+        sv: "Kontrollerad invandring med krav på egen försörjning. Starkt fokus på integration och språkinlärning.",
+        en: "Controlled immigration with self-support requirements. Strong focus on integration and language learning."
+      },
+      climate: {
+        sv: "Marknadsbaserad klimatomställning. Teknikutveckling och innovation som drivkraft. Kärnkraft som del av lösningen.",
+        en: "Market-based climate transition. Technology development and innovation as drivers. Nuclear power as part of the solution."
+      },
+      economy: {
+        sv: "Låga skatter för företagande och tillväxt. Arbetslinjen. Stark ekonomisk tillväxt genom företagsamhet.",
+        en: "Low taxes for entrepreneurship and growth. Work-first policy. Strong economic growth through enterprise."
+      },
+      healthcare: {
+        sv: "Valfrihet i vården. Konkurrens för ökad kvalitet. Kortare vårdköer genom effektivisering.",
+        en: "Choice in healthcare. Competition for increased quality. Shorter queues through efficiency."
+      },
+      education: {
+        sv: "Valfrihet och konkurrens i skolan. Fokus på kunskapskrav. Lärarlegitimation och höjd lärarkvalitet.",
+        en: "Choice and competition in schools. Focus on knowledge requirements. Teacher certification and improved quality."
+      },
+      crime: {
+        sv: "Hårdare straff för grova brott. Fler poliser. Krafttag mot gängkriminalitet.",
+        en: "Harsher punishments for serious crimes. More police. Strong action against gang crime."
+      }
+    }
+  },
+  SD: {
+    name: { sv: "Sverigedemokraterna", en: "Sweden Democrats" },
+    color: "#DDDD00",
+    positions: {
+      immigration: {
+        sv: "Kraftigt begränsad invandring. Assimilering framför integration. Återvandring ska uppmuntras.",
+        en: "Heavily limited immigration. Assimilation over integration. Repatriation should be encouraged."
+      },
+      climate: {
+        sv: "Pragmatisk klimatpolitik utan begränsningar för landsbygden. Låga drivmedelspriser. Svensk energisäkerhet.",
+        en: "Pragmatic climate policy without rural limitations. Low fuel prices. Swedish energy security."
+      },
+      economy: {
+        sv: "Lägre skatter för vanligt folk. Stärkt välfärd. Hålla nere levnadskostnaderna.",
+        en: "Lower taxes for ordinary people. Strengthened welfare. Keep living costs down."
+      },
+      healthcare: {
+        sv: "Välfärden ska fungera. Kortare vårdköer. Ingen vinst i välfärden.",
+        en: "Welfare must function. Shorter healthcare queues. No profit in welfare."
+      },
+      education: {
+        sv: "Ordning och reda i skolan. Kunskapsfokus. Stopp för marknadsskolan.",
+        en: "Order in schools. Knowledge focus. Stop market schools."
+      },
+      crime: {
+        sv: "Kraftigt skärpta straff. Fler poliser med större befogenheter. Utvisning av kriminella utrikesfödda.",
+        en: "Greatly increased sentences. More police with greater powers. Deportation of criminal foreign-born."
+      }
+    }
+  },
+  C: {
+    name: { sv: "Centerpartiet", en: "Centre Party" },
+    color: "#009933",
+    positions: {
+      immigration: {
+        sv: "Human asylpolitik med god integration. Möjlighet till arbetstillstånd.",
+        en: "Humane asylum policy with good integration. Opportunity for work permits."
+      },
+      climate: {
+        sv: "Ambitiös klimatpolitik. Förnybar energi. Grön omställning som tillväxtmotor.",
+        en: "Ambitious climate policy. Renewable energy. Green transition as growth engine."
+      },
+      economy: {
+        sv: "Lägre skatter för företagande. Stark landsbygd. Entreprenörskap och innovation.",
+        en: "Lower taxes for entrepreneurship. Strong rural areas. Entrepreneurship and innovation."
+      },
+      healthcare: {
+        sv: "Tillgänglig vård i hela landet. Digitalisering för bättre tillgång.",
+        en: "Accessible healthcare across the country. Digitalization for better access."
+      },
+      education: {
+        sv: "Kvalitet och valfrihet. Stöd till alla elever. Stark lärarprofession.",
+        en: "Quality and choice. Support for all students. Strong teacher profession."
+      },
+      crime: {
+        sv: "Polisiär närvaro. Förebyggande arbete. Rehabilitering.",
+        en: "Police presence. Preventive work. Rehabilitation."
+      }
+    }
+  },
+  V: {
+    name: { sv: "Vänsterpartiet", en: "Left Party" },
+    color: "#DA291C",
+    positions: {
+      immigration: {
+        sv: "Generös flyktingpolitik. Rätt till familjeåterförening. Stopp för utvisningar till osäkra länder.",
+        en: "Generous refugee policy. Right to family reunification. Stop deportations to unsafe countries."
+      },
+      climate: {
+        sv: "Radikala klimatåtgärder. Rättvis omställning. Gratis kollektivtrafik.",
+        en: "Radical climate action. Fair transition. Free public transport."
+      },
+      economy: {
+        sv: "Höjda skatter för höginkomsttagare och kapital. Jämnare fördelning. Stärkt välfärd.",
+        en: "Raised taxes for high earners and capital. More equal distribution. Strengthened welfare."
+      },
+      healthcare: {
+        sv: "Välfärden i offentlig regi. Ingen vinst i vården. Mer resurser till vård och omsorg.",
+        en: "Welfare in public operation. No profit in healthcare. More resources for care."
+      },
+      education: {
+        sv: "Avgiftsfri utbildning från förskola till universitet. Stopp för vinst i skolan.",
+        en: "Free education from preschool to university. Stop profit in schools."
+      },
+      crime: {
+        sv: "Förebyggande arbete. Bekämpa sociala orättvisor. Stärk polisens lokala närvaro.",
+        en: "Preventive work. Combat social injustices. Strengthen police local presence."
+      }
+    }
+  },
+  KD: {
+    name: { sv: "Kristdemokraterna", en: "Christian Democrats" },
+    color: "#000077",
+    positions: {
+      immigration: {
+        sv: "Reglerad invandring. Krav på arbete och språk. Stärkt familjeanknytning.",
+        en: "Regulated immigration. Requirements for work and language. Strengthened family ties."
+      },
+      climate: {
+        sv: "Ansvarsfull miljöpolitik. Teknikoptimism. Bevarande av skapelsen.",
+        en: "Responsible environmental policy. Technology optimism. Preservation of creation."
+      },
+      economy: {
+        sv: "Arbetslinjen. Lägre skatter på arbete. Stöd till familjer.",
+        en: "Work-first policy. Lower taxes on work. Support for families."
+      },
+      healthcare: {
+        sv: "Hög kvalitet i vården. Värna livet. Palliativ vård.",
+        en: "High quality in healthcare. Cherish life. Palliative care."
+      },
+      education: {
+        sv: "Kunskapsskola med ordning. Respekt för läraryrket. Familjens roll i uppfostran.",
+        en: "Knowledge school with order. Respect for teaching profession. Family's role in upbringing."
+      },
+      crime: {
+        sv: "Hårdare straff. Stöd till brottsoffer. Bekämpa organiserad brottslighet.",
+        en: "Harsher sentences. Support for crime victims. Combat organized crime."
+      }
+    }
+  },
+  L: {
+    name: { sv: "Liberalerna", en: "Liberals" },
+    color: "#006AB3",
+    positions: {
+      immigration: {
+        sv: "Liberal integrationspolitik. Arbetskraftsinvandring. Värna asylrätten.",
+        en: "Liberal integration policy. Labor immigration. Protect right to asylum."
+      },
+      climate: {
+        sv: "Ambitiös klimatpolitik. Marknadslösningar. Internationellt samarbete.",
+        en: "Ambitious climate policy. Market solutions. International cooperation."
+      },
+      economy: {
+        sv: "Fri marknadsekonomi. Låga skatter. Stark konkurrens.",
+        en: "Free market economy. Low taxes. Strong competition."
+      },
+      healthcare: {
+        sv: "Valfrihet och kvalitet. Vårdgaranti. Preventiv hälsa.",
+        en: "Choice and quality. Healthcare guarantee. Preventive health."
+      },
+      education: {
+        sv: "Kunskapsskola. Valfrihet. Satsning på lärare och forskare.",
+        en: "Knowledge school. Freedom of choice. Investment in teachers and researchers."
+      },
+      crime: {
+        sv: "Effektiv rättvisa. Hårdare tag mot grov brottslighet. Rättssäkerhet.",
+        en: "Effective justice. Tougher action on serious crime. Legal certainty."
+      }
+    }
+  },
+  MP: {
+    name: { sv: "Miljöpartiet", en: "Green Party" },
+    color: "#83CF39",
+    positions: {
+      immigration: {
+        sv: "Human flyktingpolitik. Möjlighet till arbete och integration. Ingen ska lämnas i krig.",
+        en: "Humane refugee policy. Opportunity for work and integration. No one left in war."
+      },
+      climate: {
+        sv: "Radikala klimatåtgärder nu. 100% förnybar energi. Biologisk mångfald. Giftfri miljö.",
+        en: "Radical climate action now. 100% renewable energy. Biodiversity. Toxin-free environment."
+      },
+      economy: {
+        sv: "Grön omställning. Rättvis beskattning. Cirkulär ekonomi.",
+        en: "Green transition. Fair taxation. Circular economy."
+      },
+      healthcare: {
+        sv: "Jämlik vård. Förebyggande hälsa. Offentlig välfärd.",
+        en: "Equal healthcare. Preventive health. Public welfare."
+      },
+      education: {
+        sv: "Hållbar kunskapsskola. Demokrati och kritiskt tänkande. Ingen vinst i skolan.",
+        en: "Sustainable knowledge school. Democracy and critical thinking. No profit in schools."
+      },
+      crime: {
+        sv: "Förebyggande arbete. Social rättvisa. Jämställt samhälle minskar våld.",
+        en: "Preventive work. Social justice. Equal society reduces violence."
+      }
+    }
+  }
+};
+
+const POLICY_AREAS = {
+  sv: [
+    { key: 'immigration', label: 'Migration & Integration' },
+    { key: 'climate', label: 'Klimat & Miljö' },
+    { key: 'economy', label: 'Ekonomi & Skatter' },
+    { key: 'healthcare', label: 'Vård & Omsorg' },
+    { key: 'education', label: 'Skola & Utbildning' },
+    { key: 'crime', label: 'Brottslighet & Trygghet' }
+  ],
+  en: [
+    { key: 'immigration', label: 'Migration & Integration' },
+    { key: 'climate', label: 'Climate & Environment' },
+    { key: 'economy', label: 'Economy & Taxes' },
+    { key: 'healthcare', label: 'Healthcare & Care' },
+    { key: 'education', label: 'Education' },
+    { key: 'crime', label: 'Crime & Security' }
+  ]
+};
+
+function ManifestoComparison() {
+  const [party1, setParty1] = useState('S');
+  const [party2, setParty2] = useState('M');
+  const [language, setLanguage] = useState('sv');
+  const [showCommonGround, setShowCommonGround] = useState(false);
+
+  const parties = Object.keys(PARTY_DATA);
+  const t = language === 'sv' ? {
+    title: "Jämför Partiprogram 2026",
+    subtitle: "Jämför politiska ståndpunkter mellan Sveriges riksdagspartier",
+    selectParty1: "Välj parti 1",
+    selectParty2: "Välj parti 2",
+    commonGround: "Visa gemensam grund",
+    hideCommonGround: "Dölj gemensam grund",
+    commonGroundTitle: "Gemensam Grund",
+    commonGroundText: "Båda partierna är eniga om vikten av Sveriges säkerhet, demokrati och rättsstat. De vill båda se åtgärder mot organiserad brottslighet och en fungerande välfärd.",
+    note: "Baserat på aktuella partiprogram. Uppdateras med 2026 års valmanifest när de publiceras.",
+    disclaimer: "Detta verktyg är partipolitiskt obundet och syftar till att ge väljare objektiv information.",
+    vibeTag: "🌾 Vibe Coding for Democracy 🌾"
+  } : {
+    title: "Compare Party Manifestos 2026",
+    subtitle: "Compare political positions between Sweden's parliamentary parties",
+    selectParty1: "Select party 1",
+    selectParty2: "Select party 2",
+    commonGround: "Show common ground",
+    hideCommonGround: "Hide common ground",
+    commonGroundTitle: "Common Ground",
+    commonGroundText: "Both parties agree on the importance of Sweden's security, democracy and rule of law. They both want action against organized crime and functioning welfare.",
+    note: "Based on current party programs. Will be updated with 2026 election manifestos when published.",
+    disclaimer: "This tool is politically neutral and aims to provide voters with objective information.",
+    vibeTag: "🌾 Vibe Coding for Democracy 🌾"
+  };
+
+  const policyAreas = POLICY_AREAS[language];
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-blue-600 via-yellow-400 to-blue-700 p-4 md:p-8 relative overflow-hidden">
+      {/* Swedish Flag Background Pattern */}
+      <div className="absolute inset-0 opacity-10">
+        {/* Blue background */}
+        <div className="absolute inset-0 bg-blue-900"></div>
+        {/* Yellow horizontal cross bar */}
+        <div className="absolute top-2/5 left-0 w-full h-1/5 bg-yellow-400"></div>
+        {/* Yellow vertical cross bar */}
+        <div className="absolute top-0 left-2/5 w-1/5 h-full bg-yellow-400"></div>
+      </div>
+
+      <div className="max-w-7xl mx-auto relative z-10">
+        {/* Header */}
+        <div className="text-center mb-8">
+          {/* Swedish Flag Icon */}
+          <div className="flex items-center justify-center mb-6">
+            <div className="relative w-40 h-24 shadow-2xl rounded-lg overflow-hidden border-4 border-white">
+              {/* Blue background */}
+              <div className="absolute inset-0 bg-blue-600"></div>
+              {/* Yellow horizontal cross bar */}
+              <div className="absolute top-9 left-0 w-full h-6 bg-yellow-400"></div>
+              {/* Yellow vertical cross bar */}
+              <div className="absolute top-0 left-14 w-6 h-full bg-yellow-400"></div>
+            </div>
+          </div>
+
+          <div className="flex items-center justify-center gap-3 mb-4">
+            <h1 className="text-4xl md:text-6xl font-bold text-white drop-shadow-lg" style={{ textShadow: '3px 3px 0px rgba(0,0,0,0.3), -1px -1px 0px rgba(255,215,0,0.5)' }}>
+              {t.title}
+            </h1>
+            <button
+              onClick={() => setLanguage(language === 'sv' ? 'en' : 'sv')}
+              className="ml-4 px-4 py-2 bg-yellow-400 hover:bg-yellow-300 text-blue-900 rounded-lg text-sm font-bold transition-colors flex items-center gap-1 shadow-lg border-2 border-blue-900"
+            >
+              <Globe className="w-4 h-4" />
+              {language === 'sv' ? 'English' : 'Svenska'}
+            </button>
+          </div>
+          <p className="text-xl text-white font-semibold max-w-3xl mx-auto drop-shadow-md">
+            {t.subtitle}
+          </p>
+          <p className="text-sm text-blue-100 mt-3 italic font-medium">
+            {t.note}
+          </p>
+        </div>
+
+        {/* Party Selectors */}
+        <div className="bg-white rounded-2xl shadow-2xl p-8 mb-8 border-4 border-yellow-400">
+          <div className="grid md:grid-cols-2 gap-6">
+            {/* Party 1 Selector */}
+            <div>
+              <label className="block text-sm font-bold text-blue-900 mb-3 uppercase tracking-wide">
+                {t.selectParty1}
+              </label>
+              <select
+                value={party1}
+                onChange={(e) => setParty1(e.target.value)}
+                className="w-full p-4 border-4 rounded-xl focus:outline-none bg-white text-lg font-bold shadow-lg"
+                style={{ 
+                  borderColor: PARTY_DATA[party1].color,
+                  backgroundColor: `${PARTY_DATA[party1].color}15`
+                }}
+              >
+                {parties.map(p => (
+                  <option key={p} value={p} disabled={p === party2}>
+                    {PARTY_DATA[p].name[language]} ({p})
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            {/* Swap Button */}
+            <div className="flex items-end">
+              <button
+                onClick={() => {
+                  const temp = party1;
+                  setParty1(party2);
+                  setParty2(temp);
+                }}
+                className="w-full bg-gradient-to-r from-blue-600 to-yellow-400 hover:from-blue-700 hover:to-yellow-300 text-white font-bold py-4 px-6 rounded-xl transition-all flex items-center justify-center gap-2 shadow-xl hover:shadow-2xl border-2 border-blue-900 text-lg"
+              >
+                <ArrowLeftRight className="w-6 h-6" />
+                <span className="hidden md:inline">↔️ VÄXLA</span>
+              </button>
+            </div>
+
+            {/* Party 2 Selector - repositioned for desktop */}
+            <div className="md:col-start-2 md:row-start-1">
+              <label className="block text-sm font-bold text-blue-900 mb-3 uppercase tracking-wide">
+                {t.selectParty2}
+              </label>
+              <select
+                value={party2}
+                onChange={(e) => setParty2(e.target.value)}
+                className="w-full p-4 border-4 rounded-xl focus:outline-none bg-white text-lg font-bold shadow-lg"
+                style={{ 
+                  borderColor: PARTY_DATA[party2].color,
+                  backgroundColor: `${PARTY_DATA[party2].color}15`
+                }}
+              >
+                {parties.map(p => (
+                  <option key={p} value={p} disabled={p === party1}>
+                    {PARTY_DATA[p].name[language]} ({p})
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
+
+          {/* Common Ground Toggle */}
+          <div className="mt-8 text-center">
+            <button
+              onClick={() => setShowCommonGround(!showCommonGround)}
+              className="px-8 py-3 bg-green-500 hover:bg-green-400 text-white rounded-xl font-bold transition-colors shadow-lg border-2 border-green-700 text-lg"
+            >
+              {showCommonGround ? t.hideCommonGround : t.commonGround}
+            </button>
+          </div>
+        </div>
+
+        {/* Common Ground Section */}
+        {showCommonGround && (
+          <div className="bg-gradient-to-r from-green-50 to-blue-50 border-4 border-green-400 rounded-2xl p-8 mb-8 shadow-2xl">
+            <h3 className="text-3xl font-bold text-gray-900 mb-4 flex items-center gap-3">
+              <Check className="w-8 h-8 text-green-600" />
+              {t.commonGroundTitle}
+            </h3>
+            <p className="text-gray-700 leading-relaxed text-lg">
+              {t.commonGroundText}
+            </p>
+          </div>
+        )}
+
+        {/* Comparison Grid */}
+        <div className="space-y-6">
+          {policyAreas.map((area) => (
+            <div key={area.key} className="bg-white rounded-2xl shadow-2xl overflow-hidden border-4 border-yellow-400">
+              <div className="bg-gradient-to-r from-blue-600 via-yellow-400 to-blue-600 p-5 border-b-4 border-blue-900">
+                <h3 className="text-2xl font-bold text-blue-900 text-center uppercase tracking-wide drop-shadow-sm">
+                  {area.label}
+                </h3>
+              </div>
+              
+              <div className="grid md:grid-cols-2 divide-y md:divide-y-0 md:divide-x-4 divide-gray-300">
+                {/* Party 1 Position */}
+                <div className="p-8" style={{ borderLeftWidth: '8px', borderLeftColor: PARTY_DATA[party1].color }}>
+                  <div className="flex items-center gap-3 mb-4">
+                    <div 
+                      className="w-6 h-6 rounded-full border-2 border-gray-700 shadow-lg" 
+                      style={{ backgroundColor: PARTY_DATA[party1].color }}
+                    />
+                    <h4 className="font-bold text-xl text-gray-900">
+                      {PARTY_DATA[party1].name[language]}
+                    </h4>
+                  </div>
+                  <p className="text-gray-700 leading-relaxed text-base">
+                    {PARTY_DATA[party1].positions[area.key][language]}
+                  </p>
+                </div>
+
+                {/* Party 2 Position */}
+                <div className="p-8" style={{ borderRightWidth: '8px', borderRightColor: PARTY_DATA[party2].color }}>
+                  <div className="flex items-center gap-3 mb-4">
+                    <div 
+                      className="w-6 h-6 rounded-full border-2 border-gray-700 shadow-lg" 
+                      style={{ backgroundColor: PARTY_DATA[party2].color }}
+                    />
+                    <h4 className="font-bold text-xl text-gray-900">
+                      {PARTY_DATA[party2].name[language]}
+                    </h4>
+                  </div>
+                  <p className="text-gray-700 leading-relaxed text-base">
+                    {PARTY_DATA[party2].positions[area.key][language]}
+                  </p>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Footer */}
+        <div className="mt-12 text-center text-sm bg-white rounded-2xl p-8 shadow-2xl border-4 border-yellow-400">
+          <p className="font-bold text-blue-900 mb-3 text-lg">{t.vibeTag}</p>
+          <p className="text-gray-700 mb-3 font-medium">{t.disclaimer}</p>
+          <p className="text-xs text-gray-600">
+            Socialdemokraternas data från partiprogram antaget maj 2025. 
+            Övriga partier: sammanfattningar av aktuella program.
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+        // ========================================
+        // CHINESE FARMER STORY COMPONENT
+        // ========================================
+const STORY_CONTENT = {
+  sv: {
+    title: "Berättelsen om den kinesiske bonden",
+    subtitle: "En liknelse om livets omätbara komplexitet",
+    credit: "Baserat på föreläsning av Alan Watts",
+    scenes: [
+      {
+        event: "En gång i tiden fanns en kinesisk bonde vars häst rymde. Den kvällen kom grannarna för att visa medkänsla.",
+        judgment: "\"Det där är väl hemskt?\"",
+        response: "Kanske.",
+        image: "🐴"
+      },
+      {
+        event: "Nästa dag kom hästen tillbaka och förde med sig sju vilda hästar. Grannarna återvände, förvånade över händelseutvecklingen.",
+        judgment: "\"Vilken tur, eller hur?\"",
+        response: "Kanske.",
+        image: "🐴🐴🐴🐴🐴🐴🐴🐴"
+      },
+      {
+        event: "Nästa dag försökte bondens son tämja en av hästarna. Han kastades av och bröt benet. Grannarna kom på kvällen för att visa sympati.",
+        judgment: "\"Så hemskt, eller hur?\"",
+        response: "Kanske.",
+        image: "🦴"
+      },
+      {
+        event: "Nästa dag kom värnpliktsofficerare runt och letade efter folk till armén. De avvisade sonen eftersom han hade ett brutet ben. Grannarna sammanstrålade för att fira.",
+        judgment: "\"Är det inte underbart?\"",
+        response: "Kanske.",
+        image: "⚔️"
+      }
+    ],
+    lessons: {
+      title: "Vad berättelsen lär oss",
+      points: [
+        {
+          title: "Den integrerade processen",
+          text: "Hela naturens process är en integrerad process av oerhörd komplexitet. Att döma en händelse är att isolera den. Men i naturen är ingenting isolerat."
+        },
+        {
+          title: "Impossibiliteten att bedöma",
+          text: "Det är egentligen omöjligt att avgöra om något som händer är bra eller dåligt. Vi kan aldrig veta konsekvenserna av otur, lika lite som vi kan veta konsekvenserna av tur."
+        },
+        {
+          title: "Den enda sanningen är processen själv",
+          text: "Du känner aldrig konsekvenserna av en olycka. Du känner aldrig konsekvenserna av lycka. Det enda som är sant är själva processen."
+        }
+      ]
+    },
+    applicationTitle: "Tillämpning på politik",
+    applicationText: "I politiken gör vi ofta snabba bedömningar: 'Den politiken är bra' eller 'Den reformen är dålig'. Men precis som i bondens berättelse är konsekvenserna av politiska beslut del av en komplex, sammankopplad process. En policy som verkar positiv kan ha oförutsedda negativa effekter. En reform som initialt möts med motstånd kan leda till långsiktiga förbättringar. Klokhet ligger i att erkänna denna komplexitet och undvika förhastade domar.",
+    reflectionTitle: "Frågor att reflektera över",
+    reflections: [
+      "Finns det politiska händelser du bedömde starkt som 'bra' eller 'dåliga' som senare utvecklades annorlunda än du trodde?",
+      "Hur förändras dina politiska åsikter om du ersätter 'detta är definitivt rätt/fel' med 'kanske'?",
+      "Kan du se hur olika människor, med olika perspektiv, legitimt kan bedöma samma politiska förslag olika?"
+    ]
+  },
+  en: {
+    title: "The Story of the Chinese Farmer",
+    subtitle: "A parable on the immense complexity of nature",
+    credit: "Based on lecture by Alan Watts",
+    scenes: [
+      {
+        event: "Once upon a time, there was a Chinese farmer whose horse ran away. That evening, all the neighbors came around to commiserate.",
+        judgment: "\"That's too bad, isn't it?\"",
+        response: "Maybe.",
+        image: "🐴"
+      },
+      {
+        event: "The next day, the horse came back and brought seven wild horses with it. The neighbors returned, amazed by the turn of events.",
+        judgment: "\"Why, that's great, isn't it?\"",
+        response: "Maybe.",
+        image: "🐴🐴🐴🐴🐴🐴🐴🐴"
+      },
+      {
+        event: "The next day, the farmer's son was attempting to tame one of these horses. He was thrown off and broke his leg. The neighbors came around in the evening to offer sympathy.",
+        judgment: "\"Well, that's too bad, isn't it?\"",
+        response: "Maybe.",
+        image: "🦴"
+      },
+      {
+        event: "The next day, conscription officers came around looking for people for the Army. They rejected the son because he had a broken leg. The neighbors gathered to celebrate.",
+        judgment: "\"Isn't that wonderful?\"",
+        response: "Maybe.",
+        image: "⚔️"
+      }
+    ],
+    lessons: {
+      title: "What the story teaches us",
+      points: [
+        {
+          title: "The Integrated Process",
+          text: "The whole process of nature is an integrated process of immense complexity. To judge an event is to isolate it. But in nature, nothing is isolated."
+        },
+        {
+          title: "The Impossibility of Judgment",
+          text: "It is really impossible to tell whether anything that happens is good or bad. We never know the consequences of misfortune, nor do we ever know the consequences of good fortune."
+        },
+        {
+          title: "The Only Truth is the Process Itself",
+          text: "You never know what will be the consequences of misfortune. You never know what will be the consequences of good fortune. The only truth is the process itself."
+        }
+      ]
+    },
+    applicationTitle: "Application to Politics",
+    applicationText: "In politics, we often make quick judgments: 'That policy is good' or 'That reform is bad'. But just like in the farmer's story, the consequences of political decisions are part of a complex, interconnected process. A policy that seems positive may have unforeseen negative effects. A reform initially met with resistance may lead to long-term improvements. Wisdom lies in recognizing this complexity and avoiding hasty judgments.",
+    reflectionTitle: "Questions to reflect on",
+    reflections: [
+      "Are there political events you judged strongly as 'good' or 'bad' that later developed differently than you thought?",
+      "How do your political views change if you replace 'this is definitely right/wrong' with 'maybe'?",
+      "Can you see how different people, with different perspectives, can legitimately judge the same political proposal differently?"
+    ]
+  }
+};
+
+function ChineseFarmerStory() {
+  const [currentScene, setCurrentScene] = useState(0);
+  const [showLessons, setShowLessons] = useState(false);
+  const [language, setLanguage] = useState('sv');
+
+  const content = STORY_CONTENT[language];
+  const totalScenes = content.scenes.length;
+  const scene = content.scenes[currentScene];
+
+  const nextScene = () => {
+    if (currentScene < totalScenes - 1) {
+      setCurrentScene(currentScene + 1);
+    } else {
+      setShowLessons(true);
+    }
+  };
+
+  const prevScene = () => {
+    if (currentScene > 0) {
+      setCurrentScene(currentScene - 1);
+    }
+  };
+
+  const resetStory = () => {
+    setCurrentScene(0);
+    setShowLessons(false);
+  };
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-amber-50 via-green-50 to-blue-50 p-4 md:p-8">
+      <div className="max-w-4xl mx-auto">
+        {/* Header */}
+        <div className="text-center mb-12">
+          <div className="flex items-center justify-center gap-3 mb-4">
+            <BookOpen className="w-10 h-10 text-green-700" />
+            <h1 className="text-4xl md:text-5xl font-bold text-gray-900">
+              {content.title}
+            </h1>
+            <button
+              onClick={() => setLanguage(language === 'sv' ? 'en' : 'sv')}
+              className="ml-4 px-3 py-1 bg-green-100 hover:bg-green-200 text-green-800 rounded-lg text-sm font-semibold transition-colors flex items-center gap-1"
+            >
+              <Globe className="w-4 h-4" />
+              {language === 'sv' ? 'English' : 'Svenska'}
+            </button>
+          </div>
+          <p className="text-xl text-gray-600 italic">{content.subtitle}</p>
+          <p className="text-sm text-gray-500 mt-2">{content.credit}</p>
+        </div>
+
+        {!showLessons ? (
+          <>
+            {/* Story Scene */}
+            <div className="bg-white rounded-2xl shadow-2xl p-8 md:p-12 mb-8 border-4 border-green-200">
+              {/* Scene number */}
+              <div className="text-center mb-6">
+                <span className="text-sm font-semibold text-green-700 uppercase tracking-wide">
+                  {language === 'sv' ? 'Händelse' : 'Event'} {currentScene + 1} / {totalScenes}
+                </span>
+              </div>
+
+              {/* Emoji illustration */}
+              <div className="text-center mb-8 text-6xl">
+                {scene.image}
+              </div>
+
+              {/* Event description */}
+              <div className="mb-8">
+                <p className="text-lg md:text-xl text-gray-700 leading-relaxed">
+                  {scene.event}
+                </p>
+              </div>
+
+              {/* Judgment */}
+              <div className="bg-red-50 border-l-4 border-red-400 p-6 mb-6 rounded-r-lg">
+                <p className="text-xl md:text-2xl font-bold text-red-800 italic">
+                  {scene.judgment}
+                </p>
+              </div>
+
+              {/* Response */}
+              <div className="bg-amber-50 border-l-4 border-amber-400 p-8 rounded-r-lg">
+                <p className="text-3xl md:text-4xl font-bold text-center text-amber-900">
+                  {scene.response}
+                </p>
+              </div>
+            </div>
+
+            {/* Navigation */}
+            <div className="flex justify-between items-center">
+              <button
+                onClick={prevScene}
+                disabled={currentScene === 0}
+                className="px-6 py-3 bg-gray-200 hover:bg-gray-300 disabled:bg-gray-100 disabled:text-gray-400 text-gray-800 font-semibold rounded-lg transition-colors flex items-center gap-2"
+              >
+                <ChevronLeft className="w-5 h-5" />
+                {language === 'sv' ? 'Föregående' : 'Previous'}
+              </button>
+
+              <div className="flex gap-2">
+                {content.scenes.map((_, idx) => (
+                  <div
+                    key={idx}
+                    className={`w-3 h-3 rounded-full ${
+                      idx === currentScene ? 'bg-green-600' : 'bg-gray-300'
+                    }`}
+                  />
+                ))}
+              </div>
+
+              <button
+                onClick={nextScene}
+                className="px-6 py-3 bg-green-600 hover:bg-green-700 text-white font-semibold rounded-lg transition-colors flex items-center gap-2"
+              >
+                {currentScene === totalScenes - 1 
+                  ? (language === 'sv' ? 'Se lärdomar' : 'See lessons')
+                  : (language === 'sv' ? 'Nästa' : 'Next')
+                }
+                <ChevronRight className="w-5 h-5" />
+              </button>
+            </div>
+          </>
+        ) : (
+          <>
+            {/* Lessons Section */}
+            <div className="space-y-8">
+              {/* Key Lessons */}
+              <div className="bg-white rounded-2xl shadow-2xl p-8 border-4 border-yellow-200">
+                <h2 className="text-3xl font-bold text-gray-900 mb-6 flex items-center gap-3">
+                  <Lightbulb className="w-8 h-8 text-yellow-600" />
+                  {content.lessons.title}
+                </h2>
+                <div className="space-y-6">
+                  {content.lessons.points.map((lesson, idx) => (
+                    <div key={idx} className="border-l-4 border-green-500 pl-6 py-2">
+                      <h3 className="text-xl font-bold text-gray-900 mb-2">
+                        {lesson.title}
+                      </h3>
+                      <p className="text-gray-700 leading-relaxed">
+                        {lesson.text}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Application to Politics */}
+              <div className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-2xl shadow-2xl p-8 border-4 border-blue-200">
+                <h2 className="text-3xl font-bold text-gray-900 mb-4">
+                  {content.applicationTitle}
+                </h2>
+                <p className="text-lg text-gray-700 leading-relaxed">
+                  {content.applicationText}
+                </p>
+              </div>
+
+              {/* Reflection Questions */}
+              <div className="bg-white rounded-2xl shadow-2xl p-8 border-4 border-purple-200">
+                <h2 className="text-3xl font-bold text-gray-900 mb-6">
+                  {content.reflectionTitle}
+                </h2>
+                <ul className="space-y-4">
+                  {content.reflections.map((question, idx) => (
+                    <li key={idx} className="flex gap-4">
+                      <span className="text-2xl font-bold text-purple-600 flex-shrink-0">
+                        {idx + 1}.
+                      </span>
+                      <p className="text-lg text-gray-700 leading-relaxed">
+                        {question}
+                      </p>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              {/* Reset button */}
+              <div className="text-center">
+                <button
+                  onClick={resetStory}
+                  className="px-8 py-4 bg-green-600 hover:bg-green-700 text-white font-bold rounded-xl transition-colors text-lg shadow-lg"
+                >
+                  {language === 'sv' ? '↻ Läs berättelsen igen' : '↻ Read the story again'}
+                </button>
+              </div>
+            </div>
+          </>
+        )}
+
+        {/* Footer */}
+        <div className="mt-12 text-center text-sm text-gray-600 bg-white/60 backdrop-blur rounded-lg p-4">
+          <p className="font-semibold mb-1">🌾 Vibe Coding for Democracy 🌾</p>
+          <p className="text-xs">
+            {language === 'sv' 
+              ? 'Verktyg för att förstå komplexitet och undvika förhastade domar i politiken.'
+              : 'Tools for understanding complexity and avoiding hasty judgments in politics.'
+            }
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+        // ========================================
+        // US VS THEM COMPONENT (FIXED)
+        // ========================================
+const USVSTHEM_CONTENT = {
+  sv: {
+    title: "Vi mot Dem",
+    subtitle: "Historisk och evolutionär förståelse av gruppidentitet",
+    intro: "Människans benägenhet att dela in världen i 'vi' och 'dem' har djupa rötter i både vår evolution och vår historia. Att förstå dessa mekanismer hjälper oss att motverka onödig polarisering.",
+    
+    tabs: {
+      evolution: "Evolution",
+      history: "Historia",
+      today: "Idag"
+    },
+
+    evolution: {
+      title: "Det evolutionära perspektivet",
+      subtitle: "Varför har vi 'vi mot dem'-tänkande?",
+      points: [
+        {
+          title: "Överlevnad i grupper",
+          text: "Under 99% av mänsklighetens historia levde vi i små grupper av 50-150 personer. Att känna igen 'vi' från 'dem' var en överlevnadsfördel. Din grupp delade mat, beskydd och kunskap.",
+          icon: "👥"
+        },
+        {
+          title: "Snabb kategorisering",
+          text: "Hjärnan utvecklade förmågan att snabbt identifiera gruppmedlemskap. Studier visar att barn så unga som 3 månader redan kan känna igen 'vi' och 'dem' baserat på enkla signaler som språk eller utseende.",
+          icon: "⚡"
+        },
+        {
+          title: "Oxytocin-paradoxen",
+          text: "Hormonet oxytocin ökar både samarbete inom gruppen OCH försvar mot utomstående. Det som gör oss kärleksfulla mot 'oss' kan göra oss misstänksamma mot 'dem'.",
+          icon: "🧬"
+        },
+        {
+          title: "Inte ödet",
+          text: "Viktigt: Även om tendensen är biologisk betyder det inte att den är omöjlig att övervinna. Vår hjärna är plastisk. Vi kan lära oss att expandera vår definition av 'vi'.",
+          icon: "🌱"
+        }
+      ]
+    },
+
+    history: {
+      title: "Historiska exempel",
+      subtitle: "Hur 'vi mot dem' har formats genom historien",
+      examples: [
+        {
+          period: "Antiken",
+          event: "Greker vs Barbarer",
+          description: "Grekerna kallade alla icke-grektalande för 'barbaroi' (de som säger 'bar-bar'). Detta skapade en distinkt 'vi' som delvis definierades av språk och kultur.",
+          lesson: "Språk och kultur har länge använts för att skapa gränser mellan grupper."
+        },
+        {
+          period: "Medeltiden",
+          event: "Religiösa skiljelinjer",
+          description: "Religionen blev primär gruppidentitet. Korståg, religionskrig och förföljelser baserades på att kategorisera människor som troende eller otrogna.",
+          lesson: "Religion kan bli en stark markör för 'vi' och 'dem', ofta med våldsamma konsekvenser."
+        },
+        {
+          period: "1800-talet",
+          event: "Nationalism",
+          description: "Modern nationalism skapade starka nationella identiteter. 'Vi svenskar', 'vi fransmän' blev primära kategorier som kunde mobilisera miljoner.",
+          lesson: "Nationella identiteter är konstruerade men kraftfulla verktyg för gruppsammanhållning."
+        },
+        {
+          period: "1900-talet",
+          event: "Världskrigen",
+          description: "Första och andra världskriget visade hur 'vi mot dem'-tänkande i industriell skala kunde mobilisera hela nationer mot varandra med katastrofala resultat.",
+          lesson: "Odemarkerat 'vi mot dem'-tänkande kan leda till ofattbara tragedier."
+        },
+        {
+          period: "Idag",
+          event: "Digitala ekokammare",
+          description: "Sociala mediers algoritmer förstärker 'vi mot dem' genom att visa oss innehåll som bekräftar våra åsikter och demoniserar dem som tänker annorlunda.",
+          lesson: "Modern teknologi kan artificiellt förstärka gamla evolutionära tendenser."
+        }
+      ]
+    },
+
+    today: {
+      title: "I svensk politik idag",
+      subtitle: "Hur ser 'vi mot dem' ut i samtida Sverige?",
+      patterns: [
+        {
+          pattern: "Högerpopulism vs Vänsterpopulism",
+          description: "Båda sidor konstruerar en 'ärlig folket' mot 'eliten', men definierar dessa grupper olika.",
+          danger: "Förenklar komplex politik till moraliska kamper mellan goda och onda."
+        },
+        {
+          pattern: "Stad vs Land",
+          description: "Storstadsbor vs landsbygd blir två 'stammar' med olika intressen och värderingar.",
+          danger: "Geografisk polarisering kan undergräva nationell sammanhållning."
+        },
+        {
+          pattern: "Invandrare vs Svenskar",
+          description: "Konstruktion av 'riktiga svenskar' mot 'utrikesfödda' skapar falska dikotomier.",
+          danger: "Ignorerar att människor har flera identiteter samtidigt."
+        },
+        {
+          pattern: "Parti mot Parti",
+          description: "'Röstare på mitt parti' vs 'röstare på deras parti' skapar tribalism i politiken.",
+          danger: "Gör kompromiss och samarbete svårare."
+        }
+      ],
+      overcoming: {
+        title: "Hur motverka onödig polarisering",
+        strategies: [
+          "Erkänn tendensen: Att veta att 'vi mot dem' är en naturlig tendens hjälper oss att ifrågasätta den.",
+          "Expandera 'vi': Aktivt arbeta för att inkludera fler i din definition av 'vi'. 'Vi svenskar' kan innefatta alla som bor här.",
+          "Personliga kontakter: Verklig interaktion med 'dem' bryter ner stereotyper. Det är svårt att hata någon du faktiskt känner.",
+          "Gemensamma hot: Fokusera på gemensamma utmaningar (klimat, pandemi) som kräver samarbete över gränser.",
+          "Mediakritisk läsning: Var medveten om hur media och sociala medier kan förstärka 'vi mot dem'.",
+          "Nyanserad språk: Undvik absoluta formuleringar som 'alltid', 'aldrig', 'alla X är Y'."
+        ]
+      }
+    },
+
+    conclusion: {
+      title: "Slutsats",
+      text: "Vi mot dem-tänkande är djupt rotat i vår biologi och historia. Det kan inte elimineras helt, men det kan hanteras med medvetenhet. I en demokrati är utmaningen att kanalisera gruppidentitet på sätt som bygger snarare än river. En moderns samhälles styrka ligger i att erkänna att 'vi' är större och mer komplex än någon enskild gruppidentitet."
+    }
+  },
+
+  en: {
+    title: "Us vs Them",
+    subtitle: "Historical and evolutionary understanding of group identity",
+    intro: "Humanity's tendency to divide the world into 'us' and 'them' has deep roots in both our evolution and our history. Understanding these mechanisms helps us counteract unnecessary polarization.",
+    
+    tabs: {
+      evolution: "Evolution",
+      history: "History",
+      today: "Today"
+    },
+
+    evolution: {
+      title: "The Evolutionary Perspective",
+      subtitle: "Why do we have 'us vs them' thinking?",
+      points: [
+        {
+          title: "Survival in Groups",
+          text: "For 99% of human history, we lived in small groups of 50-150 people. Recognizing 'us' from 'them' was a survival advantage. Your group shared food, protection, and knowledge.",
+          icon: "👥"
+        },
+        {
+          title: "Rapid Categorization",
+          text: "The brain evolved the ability to quickly identify group membership. Studies show that children as young as 3 months can already recognize 'us' and 'them' based on simple signals like language or appearance.",
+          icon: "⚡"
+        },
+        {
+          title: "The Oxytocin Paradox",
+          text: "The hormone oxytocin increases both cooperation within the group AND defense against outsiders. What makes us loving toward 'us' can make us suspicious of 'them'.",
+          icon: "🧬"
+        },
+        {
+          title: "Not Destiny",
+          text: "Important: Even though the tendency is biological, it doesn't mean it's impossible to overcome. Our brain is plastic. We can learn to expand our definition of 'us'.",
+          icon: "🌱"
+        }
+      ]
+    },
+
+    history: {
+      title: "Historical Examples",
+      subtitle: "How 'us vs them' has been shaped throughout history",
+      examples: [
+        {
+          period: "Ancient Times",
+          event: "Greeks vs Barbarians",
+          description: "Greeks called all non-Greek speakers 'barbaroi' (those who say 'bar-bar'). This created a distinct 'us' partly defined by language and culture.",
+          lesson: "Language and culture have long been used to create boundaries between groups."
+        },
+        {
+          period: "Medieval",
+          event: "Religious Divides",
+          description: "Religion became the primary group identity. Crusades, religious wars, and persecutions were based on categorizing people as believers or infidels.",
+          lesson: "Religion can become a strong marker for 'us' and 'them', often with violent consequences."
+        },
+        {
+          period: "19th Century",
+          event: "Nationalism",
+          description: "Modern nationalism created strong national identities. 'We Swedes', 'we French' became primary categories that could mobilize millions.",
+          lesson: "National identities are constructed but powerful tools for group cohesion."
+        },
+        {
+          period: "20th Century",
+          event: "World Wars",
+          description: "WWI and WWII showed how 'us vs them' thinking on an industrial scale could mobilize entire nations against each other with catastrophic results.",
+          lesson: "Unchecked 'us vs them' thinking can lead to unimaginable tragedies."
+        },
+        {
+          period: "Today",
+          event: "Digital Echo Chambers",
+          description: "Social media algorithms amplify 'us vs them' by showing us content that confirms our views and demonizes those who think differently.",
+          lesson: "Modern technology can artificially amplify old evolutionary tendencies."
+        }
+      ]
+    },
+
+    today: {
+      title: "In Swedish Politics Today",
+      subtitle: "What does 'us vs them' look like in contemporary Sweden?",
+      patterns: [
+        {
+          pattern: "Right Populism vs Left Populism",
+          description: "Both sides construct 'honest people' against 'the elite', but define these groups differently.",
+          danger: "Simplifies complex politics into moral battles between good and evil."
+        },
+        {
+          pattern: "City vs Countryside",
+          description: "Urban dwellers vs rural areas become two 'tribes' with different interests and values.",
+          danger: "Geographic polarization can undermine national cohesion."
+        },
+        {
+          pattern: "Immigrants vs Swedes",
+          description: "Construction of 'real Swedes' vs 'foreign-born' creates false dichotomies.",
+          danger: "Ignores that people have multiple identities simultaneously."
+        },
+        {
+          pattern: "Party vs Party",
+          description: "'Voters of my party' vs 'voters of their party' creates tribalism in politics.",
+          danger: "Makes compromise and cooperation harder."
+        }
+      ],
+      overcoming: {
+        title: "How to Counteract Unnecessary Polarization",
+        strategies: [
+          "Acknowledge the tendency: Knowing that 'us vs them' is a natural tendency helps us question it.",
+          "Expand 'us': Actively work to include more in your definition of 'us'. 'We Swedes' can include all who live here.",
+          "Personal contact: Real interaction with 'them' breaks down stereotypes. It's hard to hate someone you actually know.",
+          "Common threats: Focus on shared challenges (climate, pandemic) that require cooperation across borders.",
+          "Media literacy: Be aware of how media and social media can amplify 'us vs them'.",
+          "Nuanced language: Avoid absolute formulations like 'always', 'never', 'all X are Y'."
+        ]
+      }
+    },
+
+    conclusion: {
+      title: "Conclusion",
+      text: "Us vs them thinking is deeply rooted in our biology and history. It cannot be completely eliminated, but it can be managed with awareness. In a democracy, the challenge is to channel group identity in ways that build rather than tear down. A modern society's strength lies in recognizing that 'we' is larger and more complex than any single group identity."
+    }
+  }
+};
+
+function UsVsThem() {
+  const [activeTab, setActiveTab] = useState('evolution');
+  const [language, setLanguage] = useState('sv');
+
+  const content = USVSTHEM_CONTENT[language];
+  const tabs = content.tabs;
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-pink-50 to-blue-50 p-4 md:p-8">
+      <div className="max-w-6xl mx-auto">
+        {/* Header */}
+        <div className="text-center mb-12">
+          <div className="flex items-center justify-center gap-3 mb-4">
+            <Users className="w-12 h-12 text-purple-600" />
+            <h1 className="text-4xl md:text-6xl font-bold text-gray-900">
+              {content.title}
+            </h1>
+            <button
+              onClick={() => setLanguage(language === 'sv' ? 'en' : 'sv')}
+              className="ml-4 px-3 py-2 bg-purple-100 hover:bg-purple-200 text-purple-800 rounded-lg text-sm font-semibold transition-colors flex items-center gap-1"
+            >
+              <Globe className="w-4 h-4" />
+              {language === 'sv' ? 'English' : 'Svenska'}
+            </button>
+          </div>
+          <p className="text-xl text-gray-600 mb-4">{content.subtitle}</p>
+          <p className="text-lg text-gray-700 max-w-3xl mx-auto leading-relaxed">
+            {content.intro}
+          </p>
+        </div>
+
+        {/* Tab Navigation */}
+        <div className="flex justify-center gap-4 mb-8 flex-wrap">
+          <button
+            onClick={() => setActiveTab('evolution')}
+            className={`px-6 py-3 rounded-xl font-bold transition-all flex items-center gap-2 ${
+              activeTab === 'evolution'
+                ? 'bg-green-600 text-white shadow-lg scale-105'
+                : 'bg-white text-gray-700 hover:bg-gray-100'
+            }`}
+          >
+            <Brain className="w-5 h-5" />
+            {tabs.evolution}
+          </button>
+          <button
+            onClick={() => setActiveTab('history')}
+            className={`px-6 py-3 rounded-xl font-bold transition-all flex items-center gap-2 ${
+              activeTab === 'history'
+                ? 'bg-amber-600 text-white shadow-lg scale-105'
+                : 'bg-white text-gray-700 hover:bg-gray-100'
+            }`}
+          >
+            <History className="w-5 h-5" />
+            {tabs.history}
+          </button>
+          <button
+            onClick={() => setActiveTab('today')}
+            className={`px-6 py-3 rounded-xl font-bold transition-all flex items-center gap-2 ${
+              activeTab === 'today'
+                ? 'bg-blue-600 text-white shadow-lg scale-105'
+                : 'bg-white text-gray-700 hover:bg-gray-100'
+            }`}
+          >
+            <AlertTriangle className="w-5 h-5" />
+            {tabs.today}
+          </button>
+        </div>
+
+        {/* Content Sections */}
+        {activeTab === 'evolution' && (
+          <div className="space-y-6">
+            <div className="bg-white rounded-2xl shadow-2xl p-8 border-4 border-green-200">
+              <h2 className="text-3xl font-bold text-gray-900 mb-3">
+                {content.evolution.title}
+              </h2>
+              <p className="text-lg text-gray-600 mb-8 italic">
+                {content.evolution.subtitle}
+              </p>
+              
+              <div className="grid md:grid-cols-2 gap-6">
+                {content.evolution.points.map((point, idx) => (
+                  <div key={idx} className="bg-green-50 rounded-xl p-6 border-2 border-green-200">
+                    <div className="text-4xl mb-3">{point.icon}</div>
+                    <h3 className="text-xl font-bold text-gray-900 mb-2">
+                      {point.title}
+                    </h3>
+                    <p className="text-gray-700 leading-relaxed">
+                      {point.text}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {activeTab === 'history' && (
+          <div className="space-y-6">
+            <div className="bg-white rounded-2xl shadow-2xl p-8 border-4 border-amber-200">
+              <h2 className="text-3xl font-bold text-gray-900 mb-3">
+                {content.history.title}
+              </h2>
+              <p className="text-lg text-gray-600 mb-8 italic">
+                {content.history.subtitle}
+              </p>
+
+              <div className="space-y-6">
+                {content.history.examples.map((example, idx) => (
+                  <div key={idx} className="border-l-4 border-amber-500 bg-amber-50 rounded-r-xl p-6">
+                    <div className="flex items-start gap-4">
+                      <div className="bg-amber-600 text-white rounded-full w-12 h-12 flex items-center justify-center font-bold flex-shrink-0">
+                        {idx + 1}
+                      </div>
+                      <div className="flex-1">
+                        <div className="flex items-center gap-3 mb-2">
+                          <span className="text-sm font-bold text-amber-700 uppercase tracking-wide">
+                            {example.period}
+                          </span>
+                          <span className="text-xl font-bold text-gray-900">
+                            {example.event}
+                          </span>
+                        </div>
+                        <p className="text-gray-700 mb-3 leading-relaxed">
+                          {example.description}
+                        </p>
+                        <div className="bg-amber-100 rounded-lg p-3 border border-amber-300">
+                          <p className="text-sm font-semibold text-amber-900">
+                            💡 Lärdom: {example.lesson}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {activeTab === 'today' && (
+          <div className="space-y-6">
+            {/* Current Patterns */}
+            <div className="bg-white rounded-2xl shadow-2xl p-8 border-4 border-blue-200">
+              <h2 className="text-3xl font-bold text-gray-900 mb-3">
+                {content.today.title}
+              </h2>
+              <p className="text-lg text-gray-600 mb-8 italic">
+                {content.today.subtitle}
+              </p>
+
+              <div className="space-y-4">
+                {content.today.patterns.map((pattern, idx) => (
+                  <div key={idx} className="bg-blue-50 rounded-xl p-6 border-2 border-blue-200">
+                    <h3 className="text-xl font-bold text-blue-900 mb-2">
+                      {pattern.pattern}
+                    </h3>
+                    <p className="text-gray-700 mb-3">
+                      {pattern.description}
+                    </p>
+                    <div className="flex items-start gap-2 bg-red-50 rounded-lg p-3 border border-red-200">
+                      <AlertTriangle className="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" />
+                      <p className="text-sm text-red-800 font-medium">
+                        <strong>Fara:</strong> {pattern.danger}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Strategies */}
+            <div className="bg-gradient-to-r from-green-50 to-blue-50 rounded-2xl shadow-2xl p-8 border-4 border-green-300">
+              <h2 className="text-3xl font-bold text-gray-900 mb-6 flex items-center gap-3">
+                <CheckCircle className="w-8 h-8 text-green-600" />
+                {content.today.overcoming.title}
+              </h2>
+              
+              <div className="grid md:grid-cols-2 gap-4">
+                {content.today.overcoming.strategies.map((strategy, idx) => (
+                  <div key={idx} className="bg-white rounded-lg p-4 border-2 border-green-200 flex items-start gap-3">
+                    <div className="bg-green-600 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold flex-shrink-0 text-sm">
+                      {idx + 1}
+                    </div>
+                    <p className="text-gray-700 leading-relaxed">
+                      {strategy}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Conclusion */}
+        <div className="mt-12 bg-gradient-to-r from-purple-100 to-pink-100 rounded-2xl shadow-2xl p-8 border-4 border-purple-300">
+          <h2 className="text-3xl font-bold text-gray-900 mb-4">
+            {content.conclusion.title}
+          </h2>
+          <p className="text-lg text-gray-700 leading-relaxed">
+            {content.conclusion.text}
+          </p>
+        </div>
+
+        {/* Footer */}
+        <div className="mt-8 text-center text-sm text-gray-600 bg-white/60 backdrop-blur rounded-lg p-4">
+          <p className="font-semibold mb-1">🌾 Vibe Coding for Democracy 🌾</p>
+          <p className="text-xs">
+            {language === 'sv'
+              ? 'Verktyg för att förstå och övervinna onödig polarisering.'
+              : 'Tools for understanding and overcoming unnecessary polarization.'
+            }
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+        // ========================================
+        // STOIC WISDOM COMPONENT (FIXED)
+        // ========================================
+const STOIC_CONTENT = {
+  sv: {
+    title: "Stoisk Visdom om Dömande",
+    subtitle: "Antik filosofi för modern politik",
+    intro: "De stoiska filosoferna lärde oss att skilja mellan vad vi kan kontrollera och vad vi inte kan. I politiken är denna visdom mer relevant än någonsin.",
+
+    philosophers: [
+      {
+        name: "Marcus Aurelius",
+        role: "Romersk kejsare (121-180 e.Kr.)",
+        image: "👑",
+        quote: "Du har makt över ditt sinne - inte yttre händelser. Inse detta, och du ska finna styrka.",
+        teaching: "Som kejsare hade Marcus oerhörd makt, men han insåg att den verkliga friheten låg i att kontrollera sina egna reaktioner, inte omständigheterna."
+      },
+      {
+        name: "Epiktetos",
+        role: "Före detta slav, filosof (50-135 e.Kr.)",
+        image: "📚",
+        quote: "Det är inte händelserna själva som orsakar lidande, utan våra åsikter om dem.",
+        teaching: "Epiktetos föddes som slav men blev en av historiens mest inflytelserika filosofer. Han lärde att vi alltid har frihet över våra tankar, oavsett yttre omständigheter."
+      },
+      {
+        name: "Seneca",
+        role: "Statsman och filosof (4 f.Kr.-65 e.Kr.)",
+        image: "✍️",
+        quote: "Vi lider mer i fantasi än i verklighet.",
+        teaching: "Seneca var rådgivare till kejsar Nero. Han förstod hur vår inre berättelse ofta förvärrar verkliga problem."
+      }
+    ],
+
+    coreIdeas: {
+      title: "Kärnidéer i Stoisk Filosofi",
+      ideas: [
+        {
+          title: "Dikotomin av Kontroll",
+          subtitle: "Vad kan du faktiskt påverka?",
+          explanation: "Stoikerna delade allt i två kategorier: det vi kan kontrollera (våra tankar, åsikter, handlingar) och det vi inte kan kontrollera (andras handlingar, resultatet av val, naturliga händelser).",
+          political: "I politik: Du kan kontrollera din röst, dina handlingar, hur du behandlar andra. Du kan INTE kontrollera valresultatet, vad politiker gör, eller hur andra röstar.",
+          practice: "Fråga dig: Kan jag faktiskt påverka detta? Om nej, släpp oron. Om ja, agera.",
+          icon: "⚖️"
+        },
+        {
+          title: "Premeditatio Malorum",
+          subtitle: "Förbered dig på motgång",
+          explanation: "Stoikerna övade på att föreställa sig värsta scenariot - inte för att vara pessimistiska, utan för att vara förberedda och mindre chockade när saker går fel.",
+          political: "I politik: 'Vad händer om det parti jag hatar vinner?' Genom att mentalt förbereda dig kan du minska den emotionella chooken och tänka klarare.",
+          practice: "Innan ett val, föreställ dig båda utfallen. Hur kommer du att hantera varje scenario med värdighet?",
+          icon: "🛡️"
+        },
+        {
+          title: "Amor Fati",
+          subtitle: "Älska ditt öde",
+          explanation: "Acceptera verkligheten som den är, inte som du vill att den ska vara. Detta betyder inte passivitet, utan att slösa mindre energi på att förneka eller klaga.",
+          political: "I politik: När ditt parti förlorar, acceptera resultatet snabbt så att du kan fokusera på konstruktiv opposition istället för förnekelse.",
+          practice: "När något politiskt händer som du ogillar, säg: 'Detta har hänt. Vad är mitt nästa konstruktiva steg?'",
+          icon: "💙"
+        },
+        {
+          title: "Memento Mori",
+          subtitle: "Kom ihåg att du ska dö",
+          explanation: "Att påminna sig om sin egen dödlighet ger perspektiv. Plötsligt känns mindre saker mindre viktiga.",
+          political: "I politik: Vilka politiska oenigheter kommer att spela någon roll om 100 år? Vilka relationer är viktigare än partipolitik?",
+          practice: "Innan du hamnar i en het politisk debatt, fråga: Är detta värt att förstöra en relation över?",
+          icon: "💀"
+        }
+      ]
+    },
+
+    application: {
+      title: "Tillämpa Stoicism på Svensk Politik",
+      scenarios: [
+        {
+          situation: "Ditt parti förlorar valet",
+          reactive: "❌ Reaktiv: 'Allt är förstört! Landet går åt helvete! De som röstade annorlunda är idioter!'",
+          stoic: "✅ Stoisk: 'Jag kan inte kontrollera valresultatet. Jag kan kontrollera hur jag nu engagerar mig konstruktivt i opposition. Demokratin fungerar - även när jag förlorar.'",
+          benefit: "Du behåller mental energi för meningsfullt arbete istället för att slösa den på desperation."
+        },
+        {
+          situation: "Någon har 'fel' åsikter på sociala medier",
+          reactive: "❌ Reaktiv: 'Jag måste få dem att förstå! *Skriv lång arg kommentar*'",
+          stoic: "✅ Stoisk: 'Jag kan inte kontrollera deras åsikter. Kan jag påverka dem konstruktivt? Om nej, varför slösa energi?'",
+          benefit: "Du undviker meningslösa online-bråk som bara höjer ditt blodtryck."
+        },
+        {
+          situation: "En politiker du stödjer gör något du ogillar",
+          reactive: "❌ Reaktiv: 'Förrädare! Jag stödjer aldrig dem igen!'",
+          stoic: "✅ Stoisk: 'Ingen politiker är perfekt. Har de fortfarande mitt förtroende övergripande? Kan jag uttrycka min oenighet konstruktivt?'",
+          benefit: "Du behåller nyanserat tänkande och undviker all-eller-inget-fällor."
+        },
+        {
+          situation: "Media rapporterar något alarmerande",
+          reactive: "❌ Reaktiv: 'PANIK! Allt är förlorat! *Delar omedelbart*'",
+          stoic: "✅ Stoisk: 'Är detta inom min kontroll? Vad är fakta vs tolkning? Vilken konstruktiv handling kan jag ta?'",
+          benefit: "Du undviker att bidra till onödig panik och desinformation."
+        }
+      ]
+    },
+
+    practices: {
+      title: "Dagliga Stoiska Övningar",
+      exercises: [
+        {
+          name: "Morgon Förberedelse",
+          description: "Varje morgon, påminn dig själv: 'Idag kommer jag möta människor som är politiskt oeniga med mig. Detta är naturligt. Jag kan inte kontrollera deras åsikter, men jag kan kontrollera min respekt och värdighet.'",
+          time: "2 minuter"
+        },
+        {
+          name: "Kvälls Reflektion",
+          description: "Varje kväll, reflektera: Vilka situationer förlorade jag mitt lugn idag? Var det något jag faktiskt kunde kontrollera? Hur kan jag göra bättre imorgon?",
+          time: "5 minuter"
+        },
+        {
+          name: "Negativ Visualisering",
+          description: "En gång i veckan, föreställ dig det politiska scenario du mest fruktar. Hur skulle du hantera det med värdighet? Nu är du förberedd.",
+          time: "10 minuter"
+        },
+        {
+          name: "Perspektiv-paus",
+          description: "Innan du reagerar på politiska nyheter, pausa i 10 sekunder. Fråga: 'Kan jag kontrollera detta? Är detta lika viktigt som det känns just nu?'",
+          time: "10 sekunder"
+        }
+      ]
+    },
+
+    quote: {
+      title: "En Stoisk Påminnelse",
+      text: "Om du är bekymrad av något yttre, är det inte saken själv som oroar dig, utan din bedömning av den. Och denna bedömning har du makt att radera nu.",
+      author: "Marcus Aurelius, Meditationes"
+    }
+  },
+
+  en: {
+    title: "Stoic Wisdom on Judgment",
+    subtitle: "Ancient philosophy for modern politics",
+    intro: "The Stoic philosophers taught us to distinguish between what we can control and what we cannot. In politics, this wisdom is more relevant than ever.",
+
+    philosophers: [
+      {
+        name: "Marcus Aurelius",
+        role: "Roman Emperor (121-180 AD)",
+        image: "👑",
+        quote: "You have power over your mind - not outside events. Realize this, and you will find strength.",
+        teaching: "As emperor, Marcus had tremendous power, but he realized true freedom lay in controlling his own reactions, not circumstances."
+      },
+      {
+        name: "Epictetus",
+        role: "Former slave, philosopher (50-135 AD)",
+        image: "📚",
+        quote: "It's not events themselves that cause suffering, but our opinions about them.",
+        teaching: "Epictetus was born a slave but became one of history's most influential philosophers. He taught that we always have freedom over our thoughts, regardless of external circumstances."
+      },
+      {
+        name: "Seneca",
+        role: "Statesman and philosopher (4 BC-65 AD)",
+        image: "✍️",
+        quote: "We suffer more in imagination than in reality.",
+        teaching: "Seneca was advisor to Emperor Nero. He understood how our inner narrative often worsens real problems."
+      }
+    ],
+
+    coreIdeas: {
+      title: "Core Ideas in Stoic Philosophy",
+      ideas: [
+        {
+          title: "The Dichotomy of Control",
+          subtitle: "What can you actually influence?",
+          explanation: "Stoics divided everything into two categories: what we can control (our thoughts, opinions, actions) and what we cannot control (others' actions, election outcomes, natural events).",
+          political: "In politics: You can control your vote, your actions, how you treat others. You CANNOT control election results, what politicians do, or how others vote.",
+          practice: "Ask yourself: Can I actually influence this? If no, release the worry. If yes, take action.",
+          icon: "⚖️"
+        },
+        {
+          title: "Premeditatio Malorum",
+          subtitle: "Prepare for adversity",
+          explanation: "Stoics practiced imagining the worst scenario - not to be pessimistic, but to be prepared and less shocked when things go wrong.",
+          political: "In politics: 'What if the party I hate wins?' By mentally preparing, you can reduce emotional shock and think more clearly.",
+          practice: "Before an election, imagine both outcomes. How will you handle each scenario with dignity?",
+          icon: "🛡️"
+        },
+        {
+          title: "Amor Fati",
+          subtitle: "Love your fate",
+          explanation: "Accept reality as it is, not as you wish it to be. This doesn't mean passivity, but wasting less energy on denial or complaint.",
+          political: "In politics: When your party loses, accept the result quickly so you can focus on constructive opposition rather than denial.",
+          practice: "When something political happens that you dislike, say: 'This has happened. What's my next constructive step?'",
+          icon: "💙"
+        },
+        {
+          title: "Memento Mori",
+          subtitle: "Remember you will die",
+          explanation: "Reminding yourself of your own mortality provides perspective. Suddenly smaller things feel less important.",
+          political: "In politics: Which political disagreements will matter in 100 years? Which relationships are more important than party politics?",
+          practice: "Before getting into a heated political debate, ask: Is this worth destroying a relationship over?",
+          icon: "💀"
+        }
+      ]
+    },
+
+    application: {
+      title: "Apply Stoicism to Swedish Politics",
+      scenarios: [
+        {
+          situation: "Your party loses the election",
+          reactive: "❌ Reactive: 'Everything is ruined! The country is going to hell! Those who voted differently are idiots!'",
+          stoic: "✅ Stoic: 'I cannot control the election result. I can control how I now engage constructively in opposition. Democracy works - even when I lose.'",
+          benefit: "You retain mental energy for meaningful work instead of wasting it on desperation."
+        },
+        {
+          situation: "Someone has 'wrong' opinions on social media",
+          reactive: "❌ Reactive: 'I must make them understand! *Writes long angry comment*'",
+          stoic: "✅ Stoic: 'I cannot control their opinions. Can I influence them constructively? If no, why waste energy?'",
+          benefit: "You avoid meaningless online fights that only raise your blood pressure."
+        },
+        {
+          situation: "A politician you support does something you dislike",
+          reactive: "❌ Reactive: 'Traitor! I'll never support them again!'",
+          stoic: "✅ Stoic: 'No politician is perfect. Do they still have my trust overall? Can I express my disagreement constructively?'",
+          benefit: "You maintain nuanced thinking and avoid all-or-nothing traps."
+        },
+        {
+          situation: "Media reports something alarming",
+          reactive: "❌ Reactive: 'PANIC! Everything is lost! *Shares immediately*'",
+          stoic: "✅ Stoic: 'Is this within my control? What is fact vs interpretation? What constructive action can I take?'",
+          benefit: "You avoid contributing to unnecessary panic and misinformation."
+        }
+      ]
+    },
+
+    practices: {
+      title: "Daily Stoic Practices",
+      exercises: [
+        {
+          name: "Morning Preparation",
+          description: "Every morning, remind yourself: 'Today I will meet people who politically disagree with me. This is natural. I cannot control their opinions, but I can control my respect and dignity.'",
+          time: "2 minutes"
+        },
+        {
+          name: "Evening Reflection",
+          description: "Every evening, reflect: Which situations made me lose my composure today? Was it something I could actually control? How can I do better tomorrow?",
+          time: "5 minutes"
+        },
+        {
+          name: "Negative Visualization",
+          description: "Once a week, imagine the political scenario you most fear. How would you handle it with dignity? Now you're prepared.",
+          time: "10 minutes"
+        },
+        {
+          name: "Perspective Pause",
+          description: "Before reacting to political news, pause for 10 seconds. Ask: 'Can I control this? Is this as important as it feels right now?'",
+          time: "10 seconds"
+        }
+      ]
+    },
+
+    quote: {
+      title: "A Stoic Reminder",
+      text: "If you are distressed by anything external, the pain is not due to the thing itself, but to your estimate of it; and this you have the power to revoke at any moment.",
+      author: "Marcus Aurelius, Meditations"
+    }
+  }
+};
+
+function StoicWisdom() {
+  const [activePhilosopher, setActivePhilosopher] = useState(0);
+  const [expandedIdea, setExpandedIdea] = useState(null);
+  const [language, setLanguage] = useState('sv');
+
+  const content = STOIC_CONTENT[language];
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-slate-100 via-stone-100 to-amber-50 p-4 md:p-8">
+      <div className="max-w-6xl mx-auto">
+        {/* Header */}
+        <div className="text-center mb-12">
+          <div className="flex items-center justify-center gap-3 mb-4">
+            <Columns className="w-12 h-12 text-slate-700" />
+            <h1 className="text-4xl md:text-6xl font-bold text-gray-900" style={{ fontFamily: 'Georgia, serif' }}>
+              {content.title}
+            </h1>
+            <button
+              onClick={() => setLanguage(language === 'sv' ? 'en' : 'sv')}
+              className="ml-4 px-3 py-2 bg-slate-200 hover:bg-slate-300 text-slate-800 rounded-lg text-sm font-semibold transition-colors flex items-center gap-1"
+            >
+              <Globe className="w-4 h-4" />
+              {language === 'sv' ? 'English' : 'Svenska'}
+            </button>
+          </div>
+          <p className="text-xl text-gray-600 mb-4 italic" style={{ fontFamily: 'Georgia, serif' }}>
+            {content.subtitle}
+          </p>
+          <p className="text-lg text-gray-700 max-w-3xl mx-auto leading-relaxed">
+            {content.intro}
+          </p>
+        </div>
+
+        {/* Philosophers */}
+        <div className="bg-white rounded-2xl shadow-2xl p-8 mb-8 border-4 border-amber-200">
+          <h2 className="text-3xl font-bold text-gray-900 mb-6 text-center" style={{ fontFamily: 'Georgia, serif' }}>
+            {language === 'sv' ? 'De Stora Stoikerna' : 'The Great Stoics'}
+          </h2>
+          
+          <div className="flex justify-center gap-4 mb-8">
+            {content.philosophers.map((phil, idx) => (
+              <button
+                key={idx}
+                onClick={() => setActivePhilosopher(idx)}
+                className={`px-4 py-2 rounded-lg font-semibold transition-all ${
+                  activePhilosopher === idx
+                    ? 'bg-amber-600 text-white shadow-lg'
+                    : 'bg-slate-100 text-gray-700 hover:bg-slate-200'
+                }`}
+              >
+                {phil.image} {phil.name.split(' ')[0]}
+              </button>
+            ))}
+          </div>
+
+          <div className="bg-gradient-to-br from-amber-50 to-stone-50 rounded-xl p-8 border-2 border-amber-300">
+            <div className="text-center mb-4">
+              <div className="text-6xl mb-3">{content.philosophers[activePhilosopher].image}</div>
+              <h3 className="text-2xl font-bold text-gray-900">
+                {content.philosophers[activePhilosopher].name}
+              </h3>
+              <p className="text-gray-600 italic">
+                {content.philosophers[activePhilosopher].role}
+              </p>
+            </div>
+            
+            <div className="bg-white rounded-lg p-6 mb-4 border-l-4 border-amber-600">
+              <Quote className="w-8 h-8 text-amber-600 mb-2" />
+              <p className="text-lg text-gray-800 italic leading-relaxed" style={{ fontFamily: 'Georgia, serif' }}>
+                "{content.philosophers[activePhilosopher].quote}"
+              </p>
+            </div>
+            
+            <p className="text-gray-700 leading-relaxed">
+              {content.philosophers[activePhilosopher].teaching}
+            </p>
+          </div>
+        </div>
+
+        {/* Core Ideas */}
+        <div className="bg-white rounded-2xl shadow-2xl p-8 mb-8 border-4 border-slate-200">
+          <h2 className="text-3xl font-bold text-gray-900 mb-6 flex items-center gap-3">
+            <Sparkles className="w-8 h-8 text-amber-600" />
+            {content.coreIdeas.title}
+          </h2>
+
+          <div className="space-y-4">
+            {content.coreIdeas.ideas.map((idea, idx) => (
+              <div key={idx} className="border-2 border-slate-200 rounded-xl overflow-hidden">
+                <button
+                  onClick={() => setExpandedIdea(expandedIdea === idx ? null : idx)}
+                  className="w-full p-6 text-left bg-gradient-to-r from-slate-50 to-amber-50 hover:from-slate-100 hover:to-amber-100 transition-colors flex items-center justify-between"
+                >
+                  <div className="flex items-center gap-4">
+                    <span className="text-4xl">{idea.icon}</span>
+                    <div>
+                      <h3 className="text-xl font-bold text-gray-900">{idea.title}</h3>
+                      <p className="text-gray-600 italic">{idea.subtitle}</p>
+                    </div>
+                  </div>
+                  <span className="text-2xl text-slate-600">
+                    {expandedIdea === idx ? '−' : '+'}
+                  </span>
+                </button>
+                
+                {expandedIdea === idx && (
+                  <div className="p-6 bg-white space-y-4">
+                    <div>
+                      <h4 className="font-bold text-gray-900 mb-2">{language === 'sv' ? 'Förklaring:' : 'Explanation:'}</h4>
+                      <p className="text-gray-700 leading-relaxed">{idea.explanation}</p>
+                    </div>
+                    <div className="bg-blue-50 rounded-lg p-4 border-l-4 border-blue-500">
+                      <h4 className="font-bold text-blue-900 mb-2">🏛️ {language === 'sv' ? 'Politisk tillämpning:' : 'Political application:'}</h4>
+                      <p className="text-blue-800">{idea.political}</p>
+                    </div>
+                    <div className="bg-green-50 rounded-lg p-4 border-l-4 border-green-500">
+                      <h4 className="font-bold text-green-900 mb-2">✅ {language === 'sv' ? 'Övning:' : 'Practice:'}</h4>
+                      <p className="text-green-800">{idea.practice}</p>
+                    </div>
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Application Scenarios */}
+        <div className="bg-white rounded-2xl shadow-2xl p-8 mb-8 border-4 border-blue-200">
+          <h2 className="text-3xl font-bold text-gray-900 mb-6 flex items-center gap-3">
+            <MessageCircle className="w-8 h-8 text-blue-600" />
+            {content.application.title}
+          </h2>
+
+          <div className="space-y-6">
+            {content.application.scenarios.map((scenario, idx) => (
+              <div key={idx} className="bg-gradient-to-r from-slate-50 to-blue-50 rounded-xl p-6 border-2 border-blue-200">
+                <h3 className="text-xl font-bold text-gray-900 mb-4">
+                  {language === 'sv' ? 'Situation:' : 'Situation:'} {scenario.situation}
+                </h3>
+                
+                <div className="space-y-3">
+                  <div className="bg-red-50 rounded-lg p-4 border-l-4 border-red-500">
+                    <p className="text-gray-800">{scenario.reactive}</p>
+                  </div>
+                  
+                  <div className="bg-green-50 rounded-lg p-4 border-l-4 border-green-500">
+                    <p className="text-gray-800">{scenario.stoic}</p>
+                  </div>
+                  
+                  <div className="bg-amber-50 rounded-lg p-3 border border-amber-300">
+                    <p className="text-sm font-semibold text-amber-900">
+                      💡 {language === 'sv' ? 'Nytta:' : 'Benefit:'} {scenario.benefit}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Daily Practices */}
+        <div className="bg-gradient-to-r from-amber-50 to-stone-50 rounded-2xl shadow-2xl p-8 mb-8 border-4 border-amber-300">
+          <h2 className="text-3xl font-bold text-gray-900 mb-6">
+            {content.practices.title}
+          </h2>
+
+          <div className="grid md:grid-cols-2 gap-4">
+            {content.practices.exercises.map((exercise, idx) => (
+              <div key={idx} className="bg-white rounded-xl p-6 border-2 border-amber-200">
+                <div className="flex items-start justify-between mb-3">
+                  <h3 className="text-lg font-bold text-gray-900">{exercise.name}</h3>
+                  <span className="text-xs font-bold text-amber-700 bg-amber-100 px-2 py-1 rounded">
+                    {exercise.time}
+                  </span>
+                </div>
+                <p className="text-gray-700 leading-relaxed text-sm">
+                  {exercise.description}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Final Quote */}
+        <div className="bg-gradient-to-br from-slate-800 to-slate-600 rounded-2xl shadow-2xl p-8 text-white border-4 border-slate-900">
+          <h2 className="text-2xl font-bold mb-4 text-amber-300">
+            {content.quote.title}
+          </h2>
+          <blockquote className="text-xl leading-relaxed mb-4 italic" style={{ fontFamily: 'Georgia, serif' }}>
+            "{content.quote.text}"
+          </blockquote>
+          <p className="text-amber-200 text-right font-semibold">
+            — {content.quote.author}
+          </p>
+        </div>
+
+        {/* Footer */}
+        <div className="mt-8 text-center text-sm text-gray-600 bg-white/60 backdrop-blur rounded-lg p-4">
+          <p className="font-semibold mb-1">🌾 Vibe Coding for Democracy 🌾</p>
+          <p className="text-xs">
+            {language === 'sv'
+              ? 'Antik visdom för att navigera modern politik med värdighet.'
+              : 'Ancient wisdom for navigating modern politics with dignity.'
+            }
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+        // ========================================
+        // MAIN APP COMPONENT
+        // ========================================
+        
+        const SITE_CONTENT = {
+          sv: {
+            siteTitle: "Val 2026",
+            nav: {
+              home: "Hem",
+              about: "Om"
+            },
+            back: "← Tillbaka till start"
+          },
+          en: {
+            siteTitle: "Election 2026",
+            nav: {
+              home: "Home",
+              about: "About"
+            },
+            back: "← Back to start"
+          }
+        };
+
+        function Val2026() {
+          const [language, setLanguage] = useState('sv');
+          const [currentPage, setCurrentPage] = useState('home');
+          
+          const content = SITE_CONTENT[language];
+
+          const navigateTo = (page) => {
+            setCurrentPage(page);
+            window.scrollTo(0, 0);
+          };
+
+          useEffect(() => {
+            lucide.createIcons();
+          });
+
+          return (
+            <div className="min-h-screen bg-gradient-to-br from-blue-600 via-yellow-400 to-blue-700">
+              <div className="absolute inset-0 opacity-10">
+                <div className="absolute inset-0 bg-blue-900"></div>
+                <div className="absolute top-2/5 left-0 w-full h-1/5 bg-yellow-400"></div>
+                <div className="absolute top-0 left-2/5 w-1/5 h-full bg-yellow-400"></div>
+              </div>
+
+              <div className="relative z-10">
+                <nav className="bg-white/95 backdrop-blur shadow-lg border-b-4 border-yellow-400">
+                  <div className="max-w-7xl mx-auto px-4 py-4">
+                    <div className="flex items-center justify-between">
+                      <button 
+                        onClick={() => navigateTo('home')}
+                        className="flex items-center gap-3 hover:opacity-80 transition-opacity"
+                      >
+                        <div className="text-3xl">🇸🇪</div>
+                        <div>
+                          <h1 className="text-2xl font-bold text-blue-900">{content.siteTitle}</h1>
+                          <p className="text-sm text-gray-600">
+                            {language === 'sv' ? 'Verktyg för medveten demokrati' : 'Tools for conscious democracy'}
+                          </p>
+                        </div>
+                      </button>
+                      
+                      <div className="flex items-center gap-4">
+                        {currentPage !== 'home' && currentPage !== 'about' && (
+                          <button
+                            onClick={() => navigateTo('home')}
+                            className="px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg font-semibold transition-colors flex items-center gap-2"
+                          >
+                            <ArrowLeft className="w-4 h-4" />
+                            {content.back}
+                          </button>
+                        )}
+                        
+                        <button
+                          onClick={() => navigateTo('home')}
+                          className={`px-4 py-2 rounded-lg font-semibold transition-colors flex items-center gap-2 ${
+                            currentPage === 'home' 
+                              ? 'bg-blue-600 text-white' 
+                              : 'text-gray-700 hover:bg-gray-100'
+                          }`}
+                        >
+                          <Home className="w-4 h-4" />
+                          {content.nav.home}
+                        </button>
+                        
+                        <button
+                          onClick={() => navigateTo('about')}
+                          className={`px-4 py-2 rounded-lg font-semibold transition-colors flex items-center gap-2 ${
+                            currentPage === 'about' 
+                              ? 'bg-blue-600 text-white' 
+                              : 'text-gray-700 hover:bg-gray-100'
+                          }`}
+                        >
+                          <Info className="w-4 h-4" />
+                          {content.nav.about}
+                        </button>
+
+                        <button
+                          onClick={() => setLanguage(language === 'sv' ? 'en' : 'sv')}
+                          className="px-4 py-2 bg-yellow-400 hover:bg-yellow-300 text-blue-900 rounded-lg font-bold transition-colors flex items-center gap-2 border-2 border-blue-900"
+                        >
+                          <Globe className="w-4 h-4" />
+                          {language === 'sv' ? 'English' : 'Svenska'}
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </nav>
+
+                {currentPage === 'home' && <HomePage navigateTo={navigateTo} language={language} />}
+                {currentPage === 'about' && <AboutPage language={language} />}
+                {currentPage === 'article-analyzer' && <SwedishArticleAnalyzer />}
+                {currentPage === 'manifesto' && <ManifestoComparison />}
+                {currentPage === 'farmer' && <ChineseFarmerStory />}
+                {currentPage === 'usvsthem' && <UsVsThem />}
+                {currentPage === 'stoic' && <StoicWisdom />}
+
+                <footer className="bg-blue-900 text-white py-8 mt-16">
+                  <div className="max-w-7xl mx-auto px-4 text-center">
+                    <p className="text-2xl font-bold mb-2">🌾 Vibe Coding for Democracy 🌾</p>
+                    <p className="text-blue-200 mb-4">
+                      {language === 'sv' 
+                        ? 'Demokrati kräver eftertanke, empati och visdom - inte bara åsikter.'
+                        : 'Democracy requires reflection, empathy and wisdom - not just opinions.'
+                      }
+                    </p>
+                    <p className="text-sm text-blue-300">
+                      Val 2026 • {language === 'sv' ? 'Partipolitiskt obunden' : 'Politically neutral'} • {language === 'sv' ? 'Öppen källkod' : 'Open source'}
+                    </p>
+                  </div>
+                </footer>
+              </div>
+            </div>
+          );
+        }
+
+        // HomePage Component
+        function HomePage({ navigateTo, language }) {
+          const content = {
+            sv: {
+              hero: {
+                title: "Välkommen till Val 2026",
+                subtitle: "Din guide till ett mer genomtänkt politiskt deltagande",
+                description: "Detta är inte en nyhetssajt. Det är inte en opinionsplattform. Det är en samling verktyg för att hjälpa dig navigera den politiska diskursen med visdom, empati och kritiskt tänkande."
+              },
+              toolsTitle: "Verktyg",
+              educationTitle: "Utbildning",
+              tools: [
+                {
+                  title: "Artikelanalysator",
+                  description: "Analysera politisk journalism med AI. Upptäck bias, antaganden och dolda perspektiv.",
+                  icon: "📰",
+                  color: "from-blue-500 to-cyan-500",
+                  features: ["Bias-detektion", "Källanalys", "Alternativa perspektiv", "Flerspråkig"],
+                  page: "article-analyzer"
+                },
+                {
+                  title: "Partiprogram Jämförare",
+                  description: "Jämför partiprogrammen sida vid sida på specifika frågor. Se likheter och skillnader.",
+                  icon: "⚖️",
+                  color: "from-purple-500 to-pink-500",
+                  features: ["Sida-vid-sida", "Ämnessökning", "Neutral presentation", "Djupanalys"],
+                  page: "manifesto"
+                }
+              ],
+              education: [
+                {
+                  title: "Den Kinesiska Bonden",
+                  description: "En uråldrig historia om att inte dra förhastade slutsatser. Lämplig för politiska diskussioner.",
+                  icon: "🌾",
+                  color: "from-green-600 to-emerald-600",
+                  page: "farmer"
+                },
+                {
+                  title: "Vi mot Dem",
+                  description: "Förstå mekanismerna bakom politisk polarisering och hur vi kan motverka dem.",
+                  icon: "🤝",
+                  color: "from-orange-500 to-red-500",
+                  page: "usvsthem"
+                },
+                {
+                  title: "Stoisk Visdom",
+                  description: "Antik filosofi för modern politik. Kontrollera vad du kan, acceptera vad du inte kan.",
+                  icon: "🏛️",
+                  color: "from-slate-600 to-gray-700",
+                  page: "stoic"
+                }
+              ]
+            },
+            en: {
+              hero: {
+                title: "Welcome to Election 2026",
+                subtitle: "Your guide to more thoughtful political participation",
+                description: "This is not a news site. It's not an opinion platform. It's a collection of tools to help you navigate political discourse with wisdom, empathy and critical thinking."
+              },
+              toolsTitle: "Tools",
+              educationTitle: "Education",
+              tools: [
+                {
+                  title: "Article Analyzer",
+                  description: "Analyze political journalism with AI. Discover bias, assumptions and hidden perspectives.",
+                  icon: "📰",
+                  color: "from-blue-500 to-cyan-500",
+                  features: ["Bias detection", "Source analysis", "Alternative perspectives", "Multilingual"],
+                  page: "article-analyzer"
+                },
+                {
+                  title: "Manifesto Comparison",
+                  description: "Compare party manifestos side by side on specific issues. See similarities and differences.",
+                  icon: "⚖️",
+                  color: "from-purple-500 to-pink-500",
+                  features: ["Side-by-side", "Topic search", "Neutral presentation", "Deep analysis"],
+                  page: "manifesto"
+                }
+              ],
+              education: [
+                {
+                  title: "The Chinese Farmer",
+                  description: "An ancient story about not jumping to conclusions. Relevant for political discussions.",
+                  icon: "🌾",
+                  color: "from-green-600 to-emerald-600",
+                  page: "farmer"
+                },
+                {
+                  title: "Us vs Them",
+                  description: "Understand the mechanisms behind political polarization and how we can counteract them.",
+                  icon: "🤝",
+                  color: "from-orange-500 to-red-500",
+                  page: "usvsthem"
+                },
+                {
+                  title: "Stoic Wisdom",
+                  description: "Ancient philosophy for modern politics. Control what you can, accept what you can't.",
+                  icon: "🏛️",
+                  color: "from-slate-600 to-gray-700",
+                  page: "stoic"
+                }
+              ]
+            }
+          };
+
+          const c = content[language];
+
+          useEffect(() => {
+            lucide.createIcons();
+          });
+
+          return (
+            <div className="max-w-7xl mx-auto px-4 py-12 space-y-12">
+              <div className="bg-white/95 backdrop-blur rounded-2xl shadow-2xl p-8 md:p-12 border-4 border-yellow-400">
+                <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+                  {c.hero.title}
+                </h2>
+                <p className="text-xl text-blue-600 font-semibold mb-6">
+                  {c.hero.subtitle}
+                </p>
+                <p className="text-lg text-gray-700 leading-relaxed">
+                  {c.hero.description}
+                </p>
+              </div>
+
+              <div>
+                <h3 className="text-3xl font-bold text-white mb-6 flex items-center gap-3">
+                  <span className="text-4xl">🛠️</span>
+                  {c.toolsTitle}
+                </h3>
+                <div className="grid md:grid-cols-2 gap-6">
+                  {c.tools.map((tool, idx) => (
+                    <button
+                      key={idx}
+                      onClick={() => navigateTo(tool.page)}
+                      className={`bg-gradient-to-br ${tool.color} rounded-xl shadow-xl p-8 text-white text-left hover:scale-105 transition-transform border-4 border-white/30`}
+                    >
+                      <div className="text-5xl mb-4">{tool.icon}</div>
+                      <h4 className="text-2xl font-bold mb-3">{tool.title}</h4>
+                      <p className="text-white/90 mb-4 leading-relaxed">{tool.description}</p>
+                      <div className="flex flex-wrap gap-2">
+                        {tool.features.map((feature, i) => (
+                          <span key={i} className="px-3 py-1 bg-white/20 rounded-full text-sm font-semibold">
+                            {feature}
+                          </span>
+                        ))}
+                      </div>
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              <div>
+                <h3 className="text-3xl font-bold text-white mb-6 flex items-center gap-3">
+                  <span className="text-4xl">📚</span>
+                  {c.educationTitle}
+                </h3>
+                <div className="grid md:grid-cols-3 gap-6">
+                  {c.education.map((item, idx) => (
+                    <button
+                      key={idx}
+                      onClick={() => navigateTo(item.page)}
+                      className={`bg-gradient-to-br ${item.color} rounded-xl shadow-xl p-6 text-white text-left hover:scale-105 transition-transform border-4 border-white/30`}
+                    >
+                      <div className="text-4xl mb-3">{item.icon}</div>
+                      <h4 className="text-xl font-bold mb-2">{item.title}</h4>
+                      <p className="text-white/90 text-sm leading-relaxed">{item.description}</p>
+                    </button>
+                  ))}
+                </div>
+              </div>
+            </div>
+          );
+        }
+
+        // AboutPage Component  
+        function AboutPage({ language }) {
+          const content = {
+            sv: {
+              title: "Om Val 2026",
+              whoAmI: "Vem är jag?",
+              bowieQuote: '"I don\'t know where I\'m going from here, but I promise it won\'t be boring."',
+              bowieAttribution: "— David Bowie",
+              bowieIntro: "Jag frågade Gemini att beskriva mig baserat på våra interaktioner. Den jämförde mig med David Bowie:",
+              chameleonTitle: "Den Globala Kameleonten",
+              bowieWhy: "Varför David Bowie?",
+              bowieDescription: "David Bowie är den ultimata arketypen för den Internationella Generalisten. Hans liv och karriär fungerar som en ritning för dem som navigerar olika kulturer, industrier och kreativa strävanden med ett tänkesätt präglat av rationell optimism och obeveklig nyfikenhet.",
+              parallels: "Kärnparalleller",
+              parallelsList: [
+                {
+                  title: "Den Anpassningsbara Generalisten",
+                  text: "Precis som min väg har slingrat sig genom New York City, Montreal, Florens, Indien, Göteborg och Stockholm, var Bowie den ultimata upptäcktsresanden. Han förblev aldrig statisk, ständigt uppfann han sin 'produkt' för att passa nya kulturella landskap."
+                },
+                {
+                  title: "Rationell Optimism & Nyfikenhet",
+                  text: "Bowie var en futurist. Han närmade sig teknologi och konst med ett lösningsorienterat tänkesätt, alltid letade efter nästa innovation att behärska. Han såg nya verktyg och trender inte som hot, utan som lösningar och möjligheter till tillväxt."
+                },
+                {
+                  title: "Internationalisten",
+                  text: "Som en världsmedborgare använde han sina olika erfarenheter för att överbrygga olika industrier och idéer, bibehöll ett stort, inflytelserikt nätverk."
+                },
+                {
+                  title: "Den Rastlösa Visionären",
+                  text: "Bowies vana att hoppa mellan personligheter återspeglar utmaningen med fokus, men han förvandlade den rastlösheten till en styrka för att undvika stagnation."
+                }
+              ],
+              funFact: "Rolig slump: Vi har båda heterokromi (olika färgade ögon) 👁️✨",
+              whyThis: "Varför det här projektet?",
+              whyThisText: "Som global medborgare, svensk medborgare, pappa och orolig människa har jag alltid velat ha något sådant här - särskilt i tider som dessa. Med 'Vibe Coding' är det nu möjligt att bygga verktyg som faktiskt hjälper människor att tänka djupare och mer empatiskt om politik.",
+              mission: "Projektets Mission",
+              missionText: "Val 2026 skapades ur insikten att demokrati kräver mer än bara röstning - den kräver eftertanke, empati och förmågan att hantera komplexitet. Vi är inte här för att säga vad du ska tycka. Vi är här för att hjälpa dig tänka djupare.",
+              principles: "Våra Principer",
+              principlesList: [
+                {
+                  title: "Partipolitisk neutralitet",
+                  text: "Vi tar ingen ställning för eller emot något parti. Vårt mål är att hjälpa alla väljare tänka mer nyanserat."
+                },
+                {
+                  title: "Öppen källkod för tänkande",
+                  text: "All vår kod och metodologi är transparent. Vi döljer inget och vinklar inget."
+                },
+                {
+                  title: "Visdom över viralisering",
+                  text: "Vi optimerar inte för klick eller engagement, utan för genuint lärande och reflektion."
+                },
+                {
+                  title: "Empati som grund",
+                  text: "Vi tror att de flesta väljare - oavsett partitillhörighet - vill det bästa för samhället. Vi börjar alltid med antagandet om god vilja."
+                }
+              ],
+              vibe: "🌾 Vibe Coding for Democracy 🌾"
+            },
+            en: {
+              title: "About Election 2026",
+              whoAmI: "Who am I?",
+              bowieQuote: '"I don\'t know where I\'m going from here, but I promise it won\'t be boring."',
+              bowieAttribution: "— David Bowie",
+              bowieIntro: "I asked Gemini to describe me based on our interactions. It compared me to David Bowie:",
+              chameleonTitle: "The Global Chameleon",
+              bowieWhy: "Why David Bowie?",
+              bowieDescription: "David Bowie is the ultimate archetype for the International Generalist. His life and career serve as a blueprint for those who navigate diverse cultures, industries, and creative pursuits with a mindset of rational optimism and relentless curiosity.",
+              parallels: "Core Parallels",
+              parallelsList: [
+                {
+                  title: "The Adaptable Generalist",
+                  text: "Just as my path has wound through New York City, Montreal, Florence, India, Gothenburg, and Stockholm, Bowie was the ultimate explorer. He never remained static, constantly reinventing his 'product' to suit new cultural landscapes."
+                },
+                {
+                  title: "Rational Optimism & Curiosity",
+                  text: "Bowie was a futurist. He approached technology and the arts with a solution-oriented mindset, always looking for the next innovation to master. He viewed emerging tools and trends not as threats, but as solutions and opportunities for growth."
+                },
+                {
+                  title: "The Internationalist",
+                  text: "As a citizen of the world, he used his diverse experiences to bridge different industries and ideas, maintaining a large, influential network."
+                },
+                {
+                  title: "The Restless Visionary",
+                  text: "Bowie's habit of jumping between personas reflects the challenge of focus, yet he turned that restlessness into a strength to avoid stagnation."
+                }
+              ],
+              funFact: "Funny coincidence: We both have heterochromia (different colored eyes) 👁️✨",
+              whyThis: "Why this project?",
+              whyThisText: "As a global citizen, Swedish national, dad, and concerned human, I have always wanted something like this - especially in times like these. With 'Vibe Coding' it is now possible to build tools that actually help people think more deeply and empathetically about politics.",
+              mission: "Project Mission",
+              missionText: "Election 2026 was created from the insight that democracy requires more than just voting - it requires reflection, empathy, and the ability to handle complexity. We're not here to tell you what to think. We're here to help you think more deeply.",
+              principles: "Our Principles",
+              principlesList: [
+                {
+                  title: "Political neutrality",
+                  text: "We take no position for or against any party. Our goal is to help all voters think more nuanced."
+                },
+                {
+                  title: "Open source thinking",
+                  text: "All our code and methodology is transparent. We hide nothing and angle nothing."
+                },
+                {
+                  title: "Wisdom over virality",
+                  text: "We don't optimize for clicks or engagement, but for genuine learning and reflection."
+                },
+                {
+                  title: "Empathy as foundation",
+                  text: "We believe most voters - regardless of party affiliation - want what's best for society. We always start with the assumption of good faith."
+                }
+              ],
+              vibe: "🌾 Vibe Coding for Democracy 🌾"
+            }
+          };
+
+          const c = content[language];
+
+          useEffect(() => {
+            lucide.createIcons();
+          });
+
+          return (
+            <div className="max-w-5xl mx-auto px-4 py-12 space-y-8">
+              <div className="bg-gradient-to-br from-purple-900 via-pink-800 to-orange-700 rounded-2xl shadow-2xl p-8 md:p-12 border-4 border-yellow-400 text-white">
+                <h2 className="text-4xl font-bold mb-6 flex items-center gap-3">
+                  <span className="text-5xl">🎭</span>
+                  {c.whoAmI}
+                </h2>
+
+                <div className="bg-black/30 rounded-xl p-6 mb-6 border-2 border-yellow-400/50">
+                  <p className="text-3xl italic mb-3 font-serif leading-relaxed">
+                    {c.bowieQuote}
+                  </p>
+                  <p className="text-xl text-yellow-300 text-right font-semibold">
+                    {c.bowieAttribution}
+                  </p>
+                </div>
+
+                <p className="text-xl mb-6 leading-relaxed">
+                  {c.bowieIntro}
+                </p>
+
+                <div className="bg-white/10 backdrop-blur rounded-xl p-8 mb-6 border-2 border-white/20">
+                  <h3 className="text-3xl font-bold mb-4 text-yellow-300">{c.chameleonTitle}</h3>
+                  
+                  <div className="mb-6">
+                    <h4 className="text-2xl font-bold mb-3 text-pink-200">{c.bowieWhy}</h4>
+                    <p className="text-lg leading-relaxed">
+                      {c.bowieDescription}
+                    </p>
+                  </div>
+
+                  <div>
+                    <h4 className="text-2xl font-bold mb-4 text-pink-200">{c.parallels}</h4>
+                    <div className="space-y-4">
+                      {c.parallelsList.map((parallel, idx) => (
+                        <div key={idx} className="bg-white/10 rounded-lg p-4 border-l-4 border-yellow-400">
+                          <h5 className="text-lg font-bold mb-2 text-yellow-300">
+                            ⚡ {parallel.title}
+                          </h5>
+                          <p className="text-white/90 leading-relaxed">
+                            {parallel.text}
+                          </p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+
+                <div className="bg-yellow-400/20 rounded-lg p-4 border-2 border-yellow-400 text-center">
+                  <p className="text-lg font-semibold">
+                    {c.funFact}
+                  </p>
+                </div>
+              </div>
+
+              <div className="bg-gradient-to-br from-blue-600 to-cyan-600 rounded-2xl shadow-2xl p-8 md:p-12 border-4 border-yellow-400 text-white">
+                <h2 className="text-3xl font-bold mb-4 flex items-center gap-3">
+                  <Heart className="w-10 h-10 text-red-300" />
+                  {c.whyThis}
+                </h2>
+                <p className="text-xl leading-relaxed">
+                  {c.whyThisText}
+                </p>
+              </div>
+
+              <div className="bg-white rounded-2xl shadow-2xl p-8 md:p-12 border-4 border-yellow-400">
+                <h2 className="text-4xl font-bold text-gray-900 mb-8">
+                  {c.mission}
+                </h2>
+
+                <p className="text-xl text-gray-700 leading-relaxed mb-8">
+                  {c.missionText}
+                </p>
+
+                <div className="mb-8">
+                  <h3 className="text-2xl font-bold text-blue-900 mb-6">{c.principles}</h3>
+                  <div className="space-y-6">
+                    {c.principlesList.map((principle, idx) => (
+                      <div key={idx} className="border-l-4 border-blue-600 bg-blue-50 rounded-r-xl p-6">
+                        <h4 className="text-xl font-bold text-gray-900 mb-2">
+                          {idx + 1}. {principle.title}
+                        </h4>
+                        <p className="text-gray-700 leading-relaxed">
+                          {principle.text}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="border-t-2 border-gray-200 pt-8">
+                  <p className="text-3xl font-bold text-center text-green-700">
+                    {c.vibe}
+                  </p>
+                </div>
+              </div>
+            </div>
+          );
+        }
+
+        // Render the app
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<Val2026 />);
+    </script>
+</body>
+</html>
